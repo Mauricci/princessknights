@@ -54,7 +54,7 @@ public class Attributes {
     public void setHp(int hp) {
         this.hp = hp;
     }
-    public void lowerHpByOne() {
-        this.setHp(this.getHp() - 1);
+    public void lowerHp(int dmg) {
+        this.setHp(this.getHp() - dmg);
     }
 }

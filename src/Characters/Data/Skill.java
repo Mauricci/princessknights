@@ -1,31 +1,25 @@
 package Characters.Data;
 
 public class Skill {
-    protected int strength;
-    protected int speed;
-    protected int intelligence;
-    protected int charisma;
+    protected SkillAttribute skillAttribute;
+    protected int skillLevel;
+    protected double combatMod;
 
-    public Skill(int strength, int speed, int intelligence, int charisma) {
-        this.strength = strength;
-        this.speed = speed;
-        this.intelligence = intelligence;
-        this.charisma = charisma;
+    public Skill(SkillAttribute skillAttribute, double combatMod) {
+        this.skillAttribute = skillAttribute;
+        this.combatMod = combatMod;
+        skillLevel = 1;
     }
 
-    public int getStrength() {
-        return strength;
+    public SkillAttribute getSkillAttribute() {
+        return skillAttribute;
     }
 
-    public int getSpeed() {
-        return speed;
+    public int getSkillLevel() {
+        return skillLevel;
     }
 
-    public int getIntelligence() {
-        return intelligence;
-    }
-
-    public int getCharisma() {
-        return charisma;
+    public double getCombatMod() {
+        return combatMod;
     }
 }
