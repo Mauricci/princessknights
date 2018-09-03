@@ -1,6 +1,6 @@
 package Characters.Data;
 
-public enum SkillAttribute {
+public enum AttributeEnum {
     STRENGTH,
     SPEED,
     INTELLIGENCE,

@@ -3,10 +3,19 @@ package Characters;
 import Characters.Data.Attributes;
 
 public class Princess extends Character {
-    public Princess(int strength, int speed, int intelligence, int charisma, int hp) {
+    protected int trainingPoints;
+
+    public Princess(int strength, int speed, int intelligence, int charisma, int hp, int trainingPoints) {
        this.attributes = new Attributes(strength, speed, intelligence, charisma, hp);
+       this.trainingPoints = trainingPoints;
     }
 
+    public int getTrainingPoints() {
+        return trainingPoints;
+    }
+    public void setTrainingPoints(int trainingPoints) {
+        this.trainingPoints = trainingPoints;
+    }
     public void addStrength(int strength) {
         this.attributes.setStrength(this.attributes.getStrength() + strength);
     }

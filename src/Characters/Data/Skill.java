@@ -1,21 +1,25 @@
 package Characters.Data;
 
 public class Skill {
-    protected SkillAttribute skillAttribute;
+    protected String skillName;
+    protected AttributeEnum attributeEnum;
     protected int unlockedLevel;
     protected double combatMod;
     protected int skillLevel;
 
-    public Skill(SkillAttribute skillAttribute, double combatMod, int unlockedLevel) {
-        this.skillAttribute = skillAttribute;
+    public Skill(String skillName, AttributeEnum attributeEnum, double combatMod, int unlockedLevel) {
+        this.skillName = skillName;
+        this.attributeEnum = attributeEnum;
         this.combatMod = combatMod;
         this.unlockedLevel = unlockedLevel;
         skillLevel = 1;
 
     }
 
-    public SkillAttribute getSkillAttribute() {
-        return skillAttribute;
+    public String getSkillName() { return skillName;}
+
+    public AttributeEnum getAttributeEnum() {
+        return attributeEnum;
     }
 
     public int getUnlockedLevel() {

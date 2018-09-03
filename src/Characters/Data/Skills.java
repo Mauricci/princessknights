@@ -6,15 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Skills {
-    public Map<SkillAttribute, Map<Integer, List<Skill>>> skills = new HashMap<>();
+    public Map<AttributeEnum, Map<Integer, List<Skill>>> skills = new HashMap<>();
 
     public Skills(List<Skill> masterList, int maxValue, int amountOfAttributes) {
-        skills.put(SkillAttribute.STRENGTH, new HashMap<>());
-        skills.put(SkillAttribute.INTELLIGENCE, new HashMap<>());
-        skills.put(SkillAttribute.SPEED, new HashMap<>());
-        skills.put(SkillAttribute.CHARISMA, new HashMap<>());
-
-
+        skills.put(AttributeEnum.STRENGTH, new HashMap<>());
+        skills.put(AttributeEnum.INTELLIGENCE, new HashMap<>());
+        skills.put(AttributeEnum.SPEED, new HashMap<>());
+        skills.put(AttributeEnum.CHARISMA, new HashMap<>());
 
         for(int attribute = 0; attribute<amountOfAttributes;attribute++){
             Map<Integer, List<Skill>> listMap = new HashMap<>();
@@ -22,37 +20,35 @@ public class Skills {
                 List<Skill> currentList = new ArrayList<>();
                 listMap.put(attributeValue,currentList);
             }
-
             skills.put(getSkillAttribute(attribute), listMap);
         }
 
-
         for(Skill skill : masterList){
-            Map<Integer, List<Skill>> skilllist = skills.get(skill.skillAttribute);
-            skills.get(skill.skillAttribute).get(skill.unlockedLevel).add(skill);
+            skills.get(skill.attributeEnum).get(skill.unlockedLevel).add(skill);
         }
     }
 
-    private SkillAttribute getSkillAttribute(int attribute) {
-        SkillAttribute skillAttribute = SkillAttribute.STRENGTH;
+    private AttributeEnum getSkillAttribute(int attribute) {
+        AttributeEnum attributeEnum = AttributeEnum.STRENGTH;
         switch(attribute){
             case 1:
-                skillAttribute = SkillAttribute.SPEED;
+                attributeEnum = AttributeEnum.SPEED;
                 break;
             case 2:
-                skillAttribute = SkillAttribute.INTELLIGENCE;
+                attributeEnum = AttributeEnum.INTELLIGENCE;
                 break;
             case 3:
-                skillAttribute = SkillAttribute.CHARISMA;
+                attributeEnum = AttributeEnum.CHARISMA;
                 break;
         }
-        return skillAttribute;
+        return attributeEnum;
     }
 
-    public List<Skill> getSkillWithinRange(SkillAttribute skillAttribute, int minRange, int maxRange){
+    public List<Skill> getSkillWithinRange(AttributeEnum attributeEnum, int minRange, int maxRange){
         List<Skill> returnThis = new ArrayList<>();
+
         for(int i = minRange; i <= maxRange; i++) {
-            returnThis.addAll(skills.get(skillAttribute).get(i));
+            returnThis.addAll(skills.get(attributeEnum).get(i));
         }
         return returnThis;
     }
