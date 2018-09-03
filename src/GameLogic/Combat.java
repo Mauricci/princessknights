@@ -11,11 +11,12 @@ public class Combat {
         }else if(combatStrength>1){
             chanceToWin += 10*combatStrength;
         }
+        chanceToWin = chanceToWin + playerVariables.getAbilityModifier() - monsterVariables.getAbilityModifier();
 
         Random random = new Random();
 
-        double result = chanceToWin*100 - random.nextInt(100);
+        double result = chanceToWin*100 - (random.nextInt(100)+1);
 
-        return new CombatResult();//result);
+        return new CombatResult(result);
     }
 }
