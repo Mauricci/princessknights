@@ -18,7 +18,7 @@ public class Skills {
 
         for(int attribute = 0; attribute<amountOfAttributes;attribute++){
             Map<Integer, List<Skill>> listMap = new HashMap<>();
-            for(int attributeValue = 1; attributeValue<maxValue; attributeValue++){
+            for(int attributeValue = 1; attributeValue<=maxValue; attributeValue++){
                 List<Skill> currentList = new ArrayList<>();
                 listMap.put(attributeValue,currentList);
             }
@@ -28,9 +28,9 @@ public class Skills {
 
 
         for(Skill skill : masterList){
-            skills.get(skill.skillAttribute).get(skill.skillLevel).add(skill);
+            Map<Integer, List<Skill>> skilllist = skills.get(skill.skillAttribute);
+            skills.get(skill.skillAttribute).get(skill.unlockedLevel).add(skill);
         }
-        //method call to dbrepo to get list of all skills, use for-loop
     }
 
     private SkillAttribute getSkillAttribute(int attribute) {
@@ -49,10 +49,11 @@ public class Skills {
         return skillAttribute;
     }
 
-    public List<Skill> getSkill(SkillAttribute skillAttribute, int value){
-        return skills.get(skillAttribute).get(value);
+    public List<Skill> getSkillWithinRange(SkillAttribute skillAttribute, int minRange, int maxRange){
+        List<Skill> returnThis = new ArrayList<>();
+        for(int i = minRange; i <= maxRange; i++) {
+            returnThis.addAll(skills.get(skillAttribute).get(i));
+        }
+        return returnThis;
     }
-
-    //method with input int level and princess-object
-    // with for-loop to create a map of character skills
 }
