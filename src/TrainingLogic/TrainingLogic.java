@@ -25,19 +25,25 @@ public class TrainingLogic {
     }
 
     public void addStatToPrincess(Princess princess, Skill skill) {
-        if (skill.getSkillLevel() == SKILLMAXLEVEL) {
+        if (skill.getSkillLevel() == SKILLMAXLEVEL && !skill.isSkillIsMaxed()) {
             AttributeEnum ae = skill.getAttributeEnum();
             switch (ae) {
                 case STRENGTH:
                     princess.addStrength(1);
+                    skill.setSkillIsMaxed(true);
                     break;
                 case SPEED:
                     princess.addSpeed(1);
+                    skill.setSkillIsMaxed(true);
                     break;
                 case INTELLIGENCE:
                     princess.addIntelligence(1);
+                    skill.setSkillIsMaxed(true);
+                    break;
                 case CHARISMA:
                     princess.addCharisma(1);
+                    skill.setSkillIsMaxed(true);
+                    break;
             }
         }
     }

@@ -33,6 +33,7 @@ public class Test {
         for (int i = 0; i < 15; i++) {
             trainingLogic.trainAttribute(princess, skill);
             System.out.println(skill.getSkillName() + " " + skill.getSkillLevel());
+            System.out.println("princess charisma " + princess.getAttributes().getCharisma());
         }
     }
 }

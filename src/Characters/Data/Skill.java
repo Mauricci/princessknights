@@ -6,14 +6,24 @@ public class Skill {
     protected int unlockedLevel;
     protected double combatMod;
     protected int skillLevel;
+    protected boolean skillIsMaxed;
 
     public Skill(String skillName, AttributeEnum attributeEnum, double combatMod, int unlockedLevel) {
         this.skillName = skillName;
         this.attributeEnum = attributeEnum;
         this.combatMod = combatMod;
         this.unlockedLevel = unlockedLevel;
-        skillLevel = 1;
+        this.skillLevel = 1;
+        this.skillIsMaxed = false;
 
+    }
+
+    public boolean isSkillIsMaxed() {
+        return skillIsMaxed;
+    }
+
+    public void setSkillIsMaxed(boolean skillIsMaxed) {
+        this.skillIsMaxed = skillIsMaxed;
     }
 
     public String getSkillName() { return skillName;}
