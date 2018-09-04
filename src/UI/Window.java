@@ -16,7 +16,7 @@ public class Window extends Canvas implements Runnable {
     private BufferStrategy buffStrat;
     private final String title = "Princess Knights";
 
-    BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    BufferedImage image;
 
     static boolean running = false;
 
@@ -86,23 +86,16 @@ public class Window extends Canvas implements Runnable {
         graphics.setColor(Color.WHITE);
         graphics.drawString("Hej hopp!", 50, 50);
 
-        JLabel label = new JLabel("This is a test to try the Font of DOOOOOOOOM!");
-        frame.add(label);
-        try {
-            Font font = Font.createFont(Font.TRUETYPE_FONT, Window.class.getResourceAsStream("/fonts/mytype.ttf"));
-            label.setFont(font.deriveFont(Font.BOLD, 12f));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        graphics.drawImage();
-
         graphics.dispose();
         buffStrat.show();
     }
 
     public static void main(String[] args) {
+        Graphics graphics;
         Window wind = new Window();
         wind.render();
+
+        CustomFont cust = new CustomFont();
     }
 }
 
