@@ -104,3 +104,9 @@ hs_err_pid*
 
 
 # End of https://www.gitignore.io/api/java,intellij
+
+.idea/misc.xml
+.idea/modules.xml
+.idea/princessknights.iml
+.idea/vcs.xml
+PrincessKnights.iml
