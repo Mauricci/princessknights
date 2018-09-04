@@ -1,17 +1,17 @@
 package Characters.Skills;
 
 import Characters.Attributes.AttributeEnum;
+import Characters.ItemSkillSuper;
 
-public class Skill {
-    protected String skillName;
-    protected AttributeEnum attributeEnum;
+public class Skill extends ItemSkillSuper {
     protected int unlockedLevel;
     protected double combatMod;
     protected int skillLevel;
     protected boolean skillIsMaxed;
 
-    public Skill(String skillName, AttributeEnum attributeEnum, double combatMod, int unlockedLevel) {
-        this.skillName = skillName;
+    public Skill(String skillName, String skillDescription, AttributeEnum attributeEnum, double combatMod, int unlockedLevel) {
+        this.name = skillName;
+        this.description = skillDescription;
         this.attributeEnum = attributeEnum;
         this.combatMod = combatMod;
         this.unlockedLevel = unlockedLevel;
@@ -24,14 +24,8 @@ public class Skill {
         return skillIsMaxed;
     }
 
-    public void setSkillIsMaxed(boolean skillIsMaxed) {
-        this.skillIsMaxed = skillIsMaxed;
-    }
-
-    public String getSkillName() { return skillName;}
-
-    public AttributeEnum getAttributeEnum() {
-        return attributeEnum;
+    public void setSkillIsMaxed() {
+        this.skillIsMaxed = true;
     }
 
     public int getUnlockedLevel() {
