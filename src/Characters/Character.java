@@ -1,7 +1,7 @@
 package Characters;
 
-import Characters.Data.AttributeEnum;
-import Characters.Data.Attributes;
+import Characters.Attributes.AttributeEnum;
+import Characters.Attributes.Attributes;
 
 public abstract class Character {
     protected Attributes attributes;

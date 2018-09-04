@@ -1,6 +1,6 @@
 package Characters;
 
-import Characters.Data.Attributes;
+import Characters.Attributes.Attributes;
 
 public class Enemy extends Character {
     public Enemy(int strength, int speed, int intelligence, int charisma, int hp) {

@@ -1,8 +1,8 @@
 package TrainingLogic;
 
 import Characters.CharacterConstants;
-import Characters.Data.AttributeEnum;
-import Characters.Data.Skill;
+import Characters.Attributes.AttributeEnum;
+import Characters.Skills.Skill;
 import Characters.Princess;
 
 public class TrainingLogic {

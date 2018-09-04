@@ -1,4 +1,7 @@
-package Characters.Data;
+package Characters.Skills;
+
+import Characters.Attributes.AttributeEnum;
+import Characters.Attributes.Attributes;
 
 import java.util.ArrayList;
 import java.util.List;

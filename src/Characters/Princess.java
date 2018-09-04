@@ -1,8 +1,8 @@
 package Characters;
 
-import Characters.Data.Attributes;
-import Characters.Data.CharacterSkills;
-import Characters.Data.Skills;
+import Characters.Attributes.Attributes;
+import Characters.Skills.CharacterSkills;
+import Characters.Skills.Skills;
 
 public class Princess extends Character {
     private int trainingPoints;

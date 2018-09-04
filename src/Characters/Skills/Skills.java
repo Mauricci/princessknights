@@ -1,6 +1,7 @@
-package Characters.Data;
+package Characters.Skills;
 
 import Characters.CharacterConstants;
+import Characters.Attributes.AttributeEnum;
 
 import java.util.ArrayList;
 import java.util.HashMap;

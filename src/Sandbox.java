@@ -1,5 +1,5 @@
-import Characters.Data.AttributeEnum;
-import Characters.Data.Skill;
+import Characters.Attributes.AttributeEnum;
+import Characters.Skills.Skill;
 import Characters.Enemy;
 import Characters.Princess;
 import GameLogic.Combat;

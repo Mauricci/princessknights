@@ -1,4 +1,4 @@
-package Characters.Data;
+package Characters.Attributes;
 
 public enum AttributeEnum {
     STRENGTH,

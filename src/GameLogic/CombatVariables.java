@@ -1,8 +1,8 @@
 package GameLogic;
 
 import Characters.Character;
-import Characters.Data.AttributeEnum;
-import Characters.Data.Skill;
+import Characters.Attributes.AttributeEnum;
+import Characters.Skills.Skill;
 
 public class CombatVariables {
     private double power;

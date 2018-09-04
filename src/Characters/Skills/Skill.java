@@ -1,4 +1,6 @@
-package Characters.Data;
+package Characters.Skills;
+
+import Characters.Attributes.AttributeEnum;
 
 public class Skill {
     protected String skillName;
