@@ -27,7 +27,7 @@ public class Test {
                     skill.getCombatMod());
         }
 
-        Princess princess = new Princess(10, 10, 10, 10,5,20);
+        Princess princess = new Princess(10, 10, 10, 10,5,20, skillmap);
         TrainingLogic trainingLogic = new TrainingLogic();
         Skill skill = skillList.get(1);
         for (int i = 0; i < 15; i++) {
