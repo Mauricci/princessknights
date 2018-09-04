@@ -15,8 +15,8 @@ public class Combat {
 
         Random random = new Random();
 
-        double result = chanceToWin*100 - (random.nextInt(100)+1);
+        int roll = (random.nextInt(100)+1);
 
-        return new CombatResult(result);
+        return new CombatResult(chanceToWin, roll);
     }
 }
