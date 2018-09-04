@@ -5,53 +5,91 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Window {
-    private JFrame frame;
-    private BufferedImage image;
+public class Window extends Canvas implements Runnable {
+
+    JFrame frame;
+    private final int WIDTH = 800;
+    private final int HEIGHT = 500;
+    public final Dimension windowSize = new Dimension(WIDTH, HEIGHT);
     private Canvas canvas;
-    private BufferStrategy buffStrat;
     private Graphics graphics;
+    private BufferStrategy buffStrat;
+    public final String title = "Princess Knights";
+    Font font = new Font("/fonts/comic.png");
 
-    public Window(UIContainer container) {
+    BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 
-        //setup canvas
-        image = new BufferedImage(container.getWidth(), container.getHeight(),BufferedImage.TYPE_INT_RGB);
+    static boolean running = false;
+
+
+    @Override
+    public void run() {
+        while(running) {
+            render();
+            try {
+                Thread.sleep(7);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public synchronized void start() {
+        running = true;
+//        new Thread(this).start();
+    }
+
+    public static synchronized void stop() {
+        running = false;
+    }
+
+    public Window() {
+        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+
         canvas = new Canvas();
-        Dimension dimension = new Dimension((int)(container.getWidth() * container.getScale()), (int)(container.getHeight() * container.getScale()));
-        canvas.setPreferredSize(dimension);
-        canvas.setMaximumSize(dimension);
-        canvas.setMinimumSize(dimension);
+        canvas.setMinimumSize(windowSize);
+        canvas.setMaximumSize(windowSize);
+        canvas.setPreferredSize(windowSize);
 
-        //setup frame
-        frame = new JFrame(container.getTitle());
+        frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.add(canvas, BorderLayout.CENTER);
         frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
         frame.setVisible(true);
+        frame.setResizable(false);
+        frame.setTitle(title);
+        frame.setLocationRelativeTo(null);
 
         canvas.createBufferStrategy(2);
         buffStrat = canvas.getBufferStrategy();
         graphics = buffStrat.getDrawGraphics();
+
+        //things (dialog/stuff) to render in window goes here
     }
 
-    public void update() {
-        graphics.drawImage(image, 0, 0, canvas.getWidth(), canvas.getHeight(), null);
+    public void tick() {
+        //update method, if needed
+    }
+
+    public void render() {
+        if(buffStrat == null) {
+            frame.createBufferStrategy(3);
+            return;
+        }
+        graphics = buffStrat.getDrawGraphics();
+
+        //background
+        graphics.setColor(Color.BLACK);
+        graphics.drawImage(image, 0, 0, 800, 500, null);
+
+        //font goes here
+        graphics.setColor(Color.WHITE);
+        graphics.drawString("Hej hopp", 75, 50);
+
+        graphics.dispose();
         buffStrat.show();
     }
-
-    //getters
-    public JFrame getFrame() {
-        return frame;
-    }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public Canvas getCanvas() {
-        return canvas;
-    }
 }
+
+
