@@ -43,6 +43,6 @@ public class Test {
 
         Window window = new Window();
         window.render();
-        
+
     }
 }
