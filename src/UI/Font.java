@@ -1,5 +1,7 @@
 package UI;
 
+import java.awt.*;
+
 public class Font {
     public static final Font STANDARD = new Font("/fonts/comic.png");
 
@@ -24,6 +26,9 @@ public class Font {
                 unicode++;
             }
         }
+    }
+    public void render (Graphics g) {
+        g.setColor(Color.WHITE);
     }
 
     //getter & setters
