@@ -7,13 +7,11 @@ import Characters.Data.Skills;
 public class Princess extends Character {
     private int trainingPoints;
     private CharacterSkills characterSkills;
-    private Skills masterList;
 
     public Princess(int strength, int speed, int intelligence, int charisma, int hp, int trainingPoints, Skills skillsList) {
         this.attributes = new Attributes(strength, speed, intelligence, charisma, hp);
         this.trainingPoints = trainingPoints;
-        this.characterSkills = new CharacterSkills(this.attributes, this.masterList);
-        this.masterList = skillsList;
+        this.characterSkills = new CharacterSkills(this.attributes, skillsList);
     }
 
     public int getTrainingPoints() {
@@ -26,6 +24,10 @@ public class Princess extends Character {
 
     public void setTrainingPoints(int trainingPoints) {
         this.trainingPoints = trainingPoints;
+    }
+
+    public CharacterSkills getCharacterSkills() {
+        return this.characterSkills;
     }
 
     public void addStrength(int strength) {
