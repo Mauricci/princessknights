@@ -1,4 +1,4 @@
-package Characters.Data;
+package Characters.Attributes;
 
 public class Attributes {
     protected int strength;
