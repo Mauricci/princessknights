@@ -94,7 +94,7 @@ public class Window extends Canvas implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        graphics.drawImage();
+//        graphics.drawImage();
 
         graphics.dispose();
         buffStrat.show();
