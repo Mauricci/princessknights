@@ -29,19 +29,19 @@ public class TrainingLogic {
             switch (ae) {
                 case STRENGTH:
                     princess.addStrength(1);
-                    skill.setSkillIsMaxed(true);
+                    skill.setSkillIsMaxed();
                     break;
                 case SPEED:
                     princess.addSpeed(1);
-                    skill.setSkillIsMaxed(true);
+                    skill.setSkillIsMaxed();
                     break;
                 case INTELLIGENCE:
                     princess.addIntelligence(1);
-                    skill.setSkillIsMaxed(true);
+                    skill.setSkillIsMaxed();
                     break;
                 case CHARISMA:
                     princess.addCharisma(1);
-                    skill.setSkillIsMaxed(true);
+                    skill.setSkillIsMaxed();
                     break;
             }
         }

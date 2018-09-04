@@ -10,12 +10,11 @@ public class Window extends Canvas implements Runnable {
     JFrame frame;
     private final int WIDTH = 800;
     private final int HEIGHT = 500;
-    public final Dimension windowSize = new Dimension(WIDTH, HEIGHT);
+    private final Dimension windowSize = new Dimension(WIDTH, HEIGHT);
     private Canvas canvas;
     private Graphics graphics;
     private BufferStrategy buffStrat;
-    public final String title = "Princess Knights";
-    Font font = new Font("/fonts/comic.png");
+    private final String title = "Princess Knights";
 
     BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 
@@ -85,10 +84,25 @@ public class Window extends Canvas implements Runnable {
 
         //font goes here
         graphics.setColor(Color.WHITE);
-        graphics.drawString("Hej hopp", 75, 50);
+        graphics.drawString("Hej hopp!", 50, 50);
+
+        JLabel label = new JLabel("This is a test to try the Font of DOOOOOOOOM!");
+        frame.add(label);
+        try {
+            Font font = Font.createFont(Font.TRUETYPE_FONT, Window.class.getResourceAsStream("/fonts/mytype.ttf"));
+            label.setFont(font.deriveFont(Font.BOLD, 12f));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        graphics.drawImage();
 
         graphics.dispose();
         buffStrat.show();
+    }
+
+    public static void main(String[] args) {
+        Window wind = new Window();
+        wind.render();
     }
 }
 

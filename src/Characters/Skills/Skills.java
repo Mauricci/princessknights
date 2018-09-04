@@ -27,7 +27,7 @@ public class Skills {
         }
 
         for(Skill skill : masterList){
-            skills.get(skill.attributeEnum).get(skill.unlockedLevel).add(skill);
+            skills.get(skill.getAttributeEnum()).get(skill.unlockedLevel).add(skill);
         }
     }
 
