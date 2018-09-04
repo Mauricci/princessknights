@@ -1,5 +1,6 @@
 import Characters.Data.*;
 import Characters.Princess;
+import TrainingLogic.TrainingLogic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,14 @@ public class Test {
                     skill.getAttributeEnum() +", " +
                     skill.getUnlockedLevel() + ", " +
                     skill.getCombatMod());
+        }
+
+        Princess princess = new Princess(10, 10, 10, 10,5,20);
+        TrainingLogic trainingLogic = new TrainingLogic();
+        Skill skill = skillList.get(1);
+        for (int i = 0; i < 15; i++) {
+            trainingLogic.trainAttribute(princess, skill);
+            System.out.println(skill.getSkillName() + " " + skill.getSkillLevel());
         }
     }
 }

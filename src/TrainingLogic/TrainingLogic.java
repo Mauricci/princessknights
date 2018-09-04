@@ -15,6 +15,14 @@ public class TrainingLogic {
         addStatToPrincess(princess, skill);
     }
 
+    public void checkSkillAndRemoveCost(Princess princess, Skill skill) {
+        if (skill.getSkillLevel() < SKILLMAXLEVEL) {
+            if (princess.getTrainingPoints() >= SKILLCOST) {
+                skill.incrementSkill();
+                princess.setTrainingPoints(princess.getTrainingPoints() - SKILLCOST);
+            }
+        }
+    }
 
     public void addStatToPrincess(Princess princess, Skill skill) {
         if (skill.getSkillLevel() == SKILLMAXLEVEL) {
@@ -32,14 +40,5 @@ public class TrainingLogic {
                     princess.addCharisma(1);
             }
         }
-    }
-    public void checkSkillAndRemoveCost(Princess princess, Skill skill) {
-        if (skill.getSkillLevel() < SKILLMAXLEVEL) {
-            if (princess.getTrainingPoints() >= SKILLCOST) {
-                skill.incrementSkill();
-                princess.setTrainingPoints(princess.getTrainingPoints() - SKILLCOST);
-            }
-        }
-        //else error
     }
 }
