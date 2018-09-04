@@ -16,7 +16,7 @@ public class Test {
         skills.add(new Skill("Skill 4", AttributeEnum.CHARISMA, 6, 2));
         skills.add(new Skill("Skill 5", AttributeEnum.CHARISMA, 6, 1));
 
-        Skills skillmap = new Skills(skills,10,4);
+        Skills skillmap = new Skills(skills);
 
         List<Skill> skillList = skillmap.getSkillWithinRange(AttributeEnum.CHARISMA, 1, 5);
 

@@ -1,5 +1,7 @@
 package Characters.Data;
 
+import Characters.CharacterConstants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,15 +10,15 @@ import java.util.Map;
 public class Skills {
     public Map<AttributeEnum, Map<Integer, List<Skill>>> skills = new HashMap<>();
 
-    public Skills(List<Skill> masterList, int maxValue, int amountOfAttributes) {
+    public Skills(List<Skill> masterList) {
         skills.put(AttributeEnum.STRENGTH, new HashMap<>());
         skills.put(AttributeEnum.INTELLIGENCE, new HashMap<>());
         skills.put(AttributeEnum.SPEED, new HashMap<>());
         skills.put(AttributeEnum.CHARISMA, new HashMap<>());
 
-        for(int attribute = 0; attribute<amountOfAttributes;attribute++){
+        for(int attribute = 0; attribute < CharacterConstants.AMOUNT_OF_ATTRIBUTES; attribute++){
             Map<Integer, List<Skill>> listMap = new HashMap<>();
-            for(int attributeValue = 1; attributeValue<=maxValue; attributeValue++){
+            for(int attributeValue = 1; attributeValue <= CharacterConstants.SKILL_MAX_LEVEL; attributeValue++){
                 List<Skill> currentList = new ArrayList<>();
                 listMap.put(attributeValue,currentList);
             }
@@ -28,7 +30,7 @@ public class Skills {
         }
     }
 
-    private AttributeEnum getSkillAttribute(int attribute) {
+    public AttributeEnum getSkillAttribute(int attribute) {
         AttributeEnum attributeEnum = AttributeEnum.STRENGTH;
         switch(attribute){
             case 1:

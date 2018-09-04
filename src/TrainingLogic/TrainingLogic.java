@@ -1,12 +1,11 @@
 package TrainingLogic;
 
+import Characters.CharacterConstants;
 import Characters.Data.AttributeEnum;
 import Characters.Data.Skill;
 import Characters.Princess;
 
 public class TrainingLogic {
-    private final int SKILLMAXLEVEL = 10;
-    private final int SKILLCOST = 1;
 
     public void trainAttribute(Princess princess, Skill skill) {
         //connect to click on increment training in window
@@ -16,16 +15,16 @@ public class TrainingLogic {
     }
 
     public void checkSkillAndRemoveCost(Princess princess, Skill skill) {
-        if (skill.getSkillLevel() < SKILLMAXLEVEL) {
-            if (princess.getTrainingPoints() >= SKILLCOST) {
+        if (skill.getSkillLevel() < CharacterConstants.SKILL_MAX_LEVEL) {
+            if (princess.getTrainingPoints() >= CharacterConstants.SKILL_COST) {
                 skill.incrementSkill();
-                princess.setTrainingPoints(princess.getTrainingPoints() - SKILLCOST);
+                princess.setTrainingPoints(princess.getTrainingPoints() - CharacterConstants.SKILL_COST);
             }
         }
     }
 
     public void addStatToPrincess(Princess princess, Skill skill) {
-        if (skill.getSkillLevel() == SKILLMAXLEVEL && !skill.isSkillIsMaxed()) {
+        if (skill.getSkillLevel() == CharacterConstants.SKILL_MAX_LEVEL && !skill.isSkillIsMaxed()) {
             AttributeEnum ae = skill.getAttributeEnum();
             switch (ae) {
                 case STRENGTH:

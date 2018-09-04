@@ -1,13 +1,19 @@
 package Characters;
 
 import Characters.Data.Attributes;
+import Characters.Data.CharacterSkills;
+import Characters.Data.Skills;
 
 public class Princess extends Character {
-    protected int trainingPoints;
+    private int trainingPoints;
+    private CharacterSkills characterSkills;
+    private Skills masterList;
 
-    public Princess(int strength, int speed, int intelligence, int charisma, int hp, int trainingPoints) {
+    public Princess(int strength, int speed, int intelligence, int charisma, int hp, int trainingPoints, Skills skillsList) {
         this.attributes = new Attributes(strength, speed, intelligence, charisma, hp);
         this.trainingPoints = trainingPoints;
+        this.characterSkills = new CharacterSkills(this.attributes, this.masterList);
+        this.masterList = skillsList;
     }
 
     public int getTrainingPoints() {
