@@ -1,11 +1,11 @@
-import Characters.Data.Skill;
-import Characters.Data.AttributeEnum;
-import Characters.Data.Skills;
+import Characters.Data.*;
+import Characters.Princess;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Test {
+
 
     public static void main(String[] args) {
         List<Skill> skills = new ArrayList<>();

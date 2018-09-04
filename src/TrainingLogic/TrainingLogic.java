@@ -6,11 +6,12 @@ import Characters.Princess;
 
 public class TrainingLogic {
     private final int SKILLMAXLEVEL = 10;
+    private final int SKILLCOST = 1;
 
-    public void trainAttribute(Princess princess, Skill skill, int cost) {
+    public void trainAttribute(Princess princess, Skill skill) {
         //connect to click on increment training in window
 
-        checkSkillAndRemoveCost(princess, skill, cost);
+        checkSkillAndRemoveCost(princess, skill);
         addStatToPrincess(princess, skill);
     }
 
@@ -32,11 +33,11 @@ public class TrainingLogic {
             }
         }
     }
-    public void checkSkillAndRemoveCost(Princess princess, Skill skill, int cost) {
+    public void checkSkillAndRemoveCost(Princess princess, Skill skill) {
         if (skill.getSkillLevel() < SKILLMAXLEVEL) {
-            if (princess.getTrainingPoints() >= cost) {
+            if (princess.getTrainingPoints() >= SKILLCOST) {
                 skill.incrementSkill();
-                princess.setTrainingPoints(princess.getTrainingPoints() - cost);
+                princess.setTrainingPoints(princess.getTrainingPoints() - SKILLCOST);
             }
         }
         //else error
