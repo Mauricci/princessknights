@@ -1,8 +1,11 @@
 import Characters.Attributes.AttributeEnum;
+import Characters.Enemy;
 import Characters.Princess;
 import Characters.Skills.Skill;
 import Characters.Skills.Skills;
+import GameLogic.Combat;
 import TrainingLogic.TrainingLogic;
+import UI.Window;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,5 +40,9 @@ public class Test {
             System.out.println(skill.getName() + " " + skill.getSkillLevel());
             System.out.println("princess charisma " + princess.getAttributes().getCharisma());
         }
+
+        Window window = new Window();
+        window.render();
+        
     }
 }
