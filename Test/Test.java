@@ -1,3 +1,4 @@
+import Characters.Attributes.AttributeEnum;
 import Characters.Princess;
 import Characters.Skills.Skill;
 import Characters.Skills.Skills;
