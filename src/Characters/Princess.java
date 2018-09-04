@@ -14,10 +14,6 @@ public class Princess extends Character {
         return trainingPoints;
     }
 
-    public Attributes getAttributes() {
-        return this.attributes;
-    }
-
     public void setTrainingPoints(int trainingPoints) {
         this.trainingPoints = trainingPoints;
     }
@@ -37,4 +33,5 @@ public class Princess extends Character {
     public void addCharisma(int charisma) {
         this.attributes.setCharisma(this.attributes.getCharisma() + charisma);
     }
+
 }
