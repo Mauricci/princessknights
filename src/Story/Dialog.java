@@ -32,7 +32,7 @@ public class Dialog {
 
                     int choice = scanner.nextInt();
 
-                    if(choice == StoryConstants.DOCHOICE){
+                    if(choice == 1){
                         selectedChoice = choiceOneID;
                     }else if(choice == 2){
                         selectedChoice = choiceTwoID;

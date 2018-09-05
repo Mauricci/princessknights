@@ -16,21 +16,23 @@ public class Scene {
     private int choiceOneID;
     private int choiceTwoID;
     //collection av dialog
-    private Map<Integer,Dialog> theMap = new HashMap<>();
+    private Map<Integer,Dialog> dialogs = new HashMap<>();
     private Enemy monster = new Enemy(2,2,2,2,2);
     private int selectedChoice;
     private int flag;
     //combat mappat till olika dialoger
-    public Scene(List<Integer> dialogIDs){
+    public Scene(Map<Integer, Dialog> dialogs, int firstDialogID){
+        this.dialogs = dialogs;
+        currentDialogData = new DialogData(firstDialogID,StoryConstants.AUTONEXTQUESTION);
         //hämta in alla aktuella dialoger
     }
 
     public SceneData doScene(Princess princess){
         CombatResult result = null;
         boolean combatDone = false;
-        while(currentDialogData.getFlag() != StoryConstants.DONE || !combatDone){
+        while(currentDialogData.getFlag() != StoryConstants.DONE && !combatDone){
 
-            currentDialogData = theMap.get(currentDialogData.getId()).doDialog();
+            currentDialogData = dialogs.get(currentDialogData.getId()).doDialog();
 
             if(currentDialogData.getFlag() == StoryConstants.COMBAT){
                 Combat combat = new Combat();
