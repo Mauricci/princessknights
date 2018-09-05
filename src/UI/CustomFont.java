@@ -1,10 +1,8 @@
 package UI;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.File;
-import java.io.IOException;
 
 public class CustomFont implements Drawable {
     //    JLabel label = new JLabel("This is the font of DOOOOOOOOOOOM!");
@@ -13,7 +11,8 @@ public class CustomFont implements Drawable {
 
 
     @Override
-    public void render(Graphics g) {
+    public void render() {
+        Graphics g;
         String message = "This is the font of DOOOOOOOOOOOM!";
 
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
