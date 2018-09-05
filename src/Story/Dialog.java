@@ -8,15 +8,15 @@ public class Dialog {
     private String text;
     private int flag;
     private int id;
-    private int choiceOneID, choiceTwoId;
+    private int choiceOneID, choiceTwoID;
     private int selectedChoice = 0;
 
-    public Dialog(String text, int flag, int id, int choiceOneID, int choiceTwoId) {
+    public Dialog(String text, int flag, int id, int choiceOneID, int choiceTwoID) {
         this.text = text;
         this.flag = flag;
         this.id = id;
         this.choiceOneID = choiceOneID;
-        this.choiceTwoId = choiceTwoId;
+        this.choiceTwoID = choiceTwoID;
     }
 
     public DialogData doDialog(){
@@ -35,7 +35,7 @@ public class Dialog {
                     if(choice == StoryConstants.DOCHOICE){
                         selectedChoice = choiceOneID;
                     }else if(choice == 2){
-                        selectedChoice = choiceTwoId;
+                        selectedChoice = choiceTwoID;
                     }
                 }
             }
