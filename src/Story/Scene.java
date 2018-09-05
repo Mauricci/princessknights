@@ -15,15 +15,13 @@ public class Scene {
     private DialogData currentDialogData;
     //collection av dialog
     private Map<Integer,Dialog> theMap = new HashMap<>();
-    private Princess princess;
     private Enemy monster = new Enemy(2,2,2,2,2);
     //combat mappat till olika dialoger
-    public Scene(Princess princess, List<Integer> dialogIDs){
-        this.princess = princess;
+    public Scene(List<Integer> dialogIDs){
         //hämta in alla aktuella dialoger
     }
 
-    public SceneData doScene(){
+    public SceneData doScene(Princess princess){
         CombatResult result = null;
         boolean combatDone = false;
         while(currentDialogData.getFlag() != StoryConstants.DONE || !combatDone){
