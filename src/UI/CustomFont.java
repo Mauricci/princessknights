@@ -19,10 +19,12 @@ public class CustomFont implements Drawable {
         try {
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("/fonts/mytype.ttf")));
         } catch (Exception e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
-        g = buffStrat.getDrawGraphics();
+
+       // g = buffStrat.getDrawGraphics();
         g.setColor(Color.WHITE);
         g.drawString(message, 100, 100);
     }

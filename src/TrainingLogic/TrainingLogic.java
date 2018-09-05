@@ -14,7 +14,7 @@ public class TrainingLogic {
         addStatToPrincess(princess, skill);
     }
 
-    public void checkSkillAndRemoveCost(Princess princess, Skill skill) {
+    private void checkSkillAndRemoveCost(Princess princess, Skill skill) {
         if (skill.getSkillLevel() < CharacterConstants.SKILL_MAX_LEVEL) {
             if (princess.getTrainingPoints() >= CharacterConstants.SKILL_COST) {
                 skill.incrementSkill();
@@ -23,7 +23,7 @@ public class TrainingLogic {
         }
     }
 
-    public void addStatToPrincess(Princess princess, Skill skill) {
+    private void addStatToPrincess(Princess princess, Skill skill) {
         if (skill.getSkillLevel() == CharacterConstants.SKILL_MAX_LEVEL && !skill.isSkillIsMaxed()) {
             AttributeEnum ae = skill.getAttributeEnum();
             switch (ae) {

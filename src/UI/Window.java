@@ -84,10 +84,17 @@ public class Window extends Canvas implements Runnable {
 
         //font goes here
         graphics.setColor(Color.WHITE);
-        graphics.drawString("Hej hopp!", 50, 50);
+        String string = "Hej hopp";
+        graphics.drawString(string, 50, 50);
 
         graphics.dispose();
         buffStrat.show();
+    }
+    public Canvas getCanvas(){
+        return canvas;
+    }
+    public Graphics getGraphics(){
+        return graphics;
     }
 
     public static void main(String[] args) {
@@ -96,6 +103,7 @@ public class Window extends Canvas implements Runnable {
         wind.render();
 
         CustomFont cust = new CustomFont();
+        cust.render(wind.getGraphics());
     }
 }
 
