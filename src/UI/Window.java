@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
 
 public class Window extends Canvas implements Runnable {
 
@@ -24,7 +26,7 @@ public class Window extends Canvas implements Runnable {
     @Override
     public void run() {
         while(running) {
-            render();
+            render(new ArrayList<>());
             try {
                 Thread.sleep(7);
             } catch (Exception ex) {
@@ -71,7 +73,8 @@ public class Window extends Canvas implements Runnable {
         //update method, if needed
     }
 
-    public void render() {
+    public void render(ArrayList<Drawable> drawingObjects) {
+
         if(buffStrat == null) {
             frame.createBufferStrategy(3);
             return;
@@ -87,6 +90,27 @@ public class Window extends Canvas implements Runnable {
         String string = "Hej hopp";
         graphics.drawString(string, 50, 50);
 
+        String fontMessage = "Nya fonten";
+        Font font = new Font("Consolas", Font.PLAIN, 36 );
+        //Font font = null;
+        try{
+             font = Font.createFont(Font.TRUETYPE_FONT, new File("C:/Windows/Fonts/mytype.ttf"));
+            //graphics.setFont(font);
+        }catch(Exception e){
+
+        }
+
+        for(Drawable drawable : drawingObjects){
+
+        }
+
+        font = font.deriveFont(font.getSize()*50f);
+        graphics.setFont(font);//new Font("mvboli", Font.BOLD, 10)
+        //frame.setFont(font);
+        //graphics.setFont(font);
+        graphics.drawString(fontMessage, 100, 100);
+
+
         graphics.dispose();
         buffStrat.show();
     }
@@ -97,13 +121,16 @@ public class Window extends Canvas implements Runnable {
         return graphics;
     }
 
+    public BufferStrategy getBuffStrat(){
+        return buffStrat;
+    }
     public static void main(String[] args) {
         Graphics graphics;
         Window wind = new Window();
-        wind.render();
+        wind.render(new ArrayList<>());
 
         CustomFont cust = new CustomFont();
-        cust.render(wind.getGraphics());
+        cust.render(wind);
     }
 }
 
