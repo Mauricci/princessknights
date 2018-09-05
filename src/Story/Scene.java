@@ -13,9 +13,13 @@ import java.util.Map;
 
 public class Scene {
     private DialogData currentDialogData;
+    private int choiceOneID;
+    private int choiceTwoID;
     //collection av dialog
     private Map<Integer,Dialog> theMap = new HashMap<>();
     private Enemy monster = new Enemy(2,2,2,2,2);
+    private int selectedChoice;
+    private int flag;
     //combat mappat till olika dialoger
     public Scene(List<Integer> dialogIDs){
         //hämta in alla aktuella dialoger
@@ -33,8 +37,17 @@ public class Scene {
                 result = combat.calculateCombatResult(new CombatVariables(princess, AttributeEnum.CHARISMA), new CombatVariables(monster, AttributeEnum.CHARISMA));
                 combatDone = true;
             }
-
         }
-        return new SceneData(result);
+        if(currentDialogData.getFlag() == StoryConstants.DONE) {
+            flag = StoryConstants.SCENARIODONE;
+        }else if(combatDone){
+            flag = StoryConstants.COMBATDONE;
+            if(result.getResult() < 1){
+                selectedChoice = choiceTwoID;
+            }else{
+                selectedChoice = choiceOneID;
+            }
+        }
+        return new SceneData(result, selectedChoice, flag);
     }
 }
