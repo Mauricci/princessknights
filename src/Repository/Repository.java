@@ -175,7 +175,7 @@ public class Repository {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }
-        return new Scene(newSceneMap, firstDialogID);
+        return new Scene(sceneID,newSceneMap, firstDialogID);
     }
 
     public Dialog getDialog(String dialogID) {

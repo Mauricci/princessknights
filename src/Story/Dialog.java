@@ -1,8 +1,10 @@
 package Story;
 
+import UI.Drawable;
+
 import java.util.Scanner;
 
-public class Dialog {
+public class Dialog implements Drawable{
 
 
     private String text;
@@ -11,39 +13,48 @@ public class Dialog {
     private String choiceOneID, choiceTwoID;
     private String defaultAtribute;
 
-    private String selectedChoice = "";
+    private String selectedChoice;
 
-    public Dialog(String text, int flag, String id, String choiceOneID, String choiceTwoID, String attribute) {
+    public Dialog(String text, int flag, String id, String choiceOneID, String choiceTwoID, String attribute)
+
+    {
         this.text = text;
         this.flag = flag;
         this.id = id;
         this.choiceOneID = choiceOneID;
         this.choiceTwoID = choiceTwoID;
         this.defaultAtribute = attribute;
+        selectedChoice = this.id;
     }
 
-    public DialogData doDialog(){
-        System.out.println(text);
+    public DialogData doDialog(int choice){
         if(flag == StoryConstants.COMBAT || flag == StoryConstants.DONE){
             selectedChoice = choiceOneID;
         }else{
-            while(selectedChoice == null){
+            //if(selectedChoice == null){
                 if(flag == StoryConstants.AUTONEXTQUESTION){
                     selectedChoice = choiceOneID;
                 }else{
-                    Scanner scanner = new Scanner(System.in);
-
-                    int choice = scanner.nextInt();
-
                     if(choice == 1){
+                        System.out.println("doing choice one");
                         selectedChoice = choiceOneID;
                     }else if(choice == 2){
                         selectedChoice = choiceTwoID;
                     }
                 }
-            }
+           // }
         }
-
-        return new DialogData(selectedChoice,flag);
+    DialogData dialogData = new DialogData(selectedChoice,flag,this);
+        System.out.println(dialogData);
+        return dialogData;
+    }
+    public String getText(){
+        return text;
+    }
+    public String getID(){
+        return id;
+    }
+    public int getFlag(){
+        return flag;
     }
 }

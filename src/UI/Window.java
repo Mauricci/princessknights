@@ -6,8 +6,9 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import Story.Dialog;
 
-public class Window extends Canvas implements Runnable {
+public class Window extends JFrame implements Runnable {
 
     JFrame frame;
     private final int WIDTH = 800;
@@ -18,14 +19,15 @@ public class Window extends Canvas implements Runnable {
     private BufferStrategy buffStrat;
     private final String title = "Princess Knights";
 
-    BufferedImage image;
+    Image image;
 
     static boolean running = false;
+    private ArrayList<Drawable> drawingObjects;
 
 
     @Override
     public void run() {
-        while(running) {
+        while (running) {
             render(new ArrayList<>());
             try {
                 Thread.sleep(7);
@@ -44,15 +46,19 @@ public class Window extends Canvas implements Runnable {
         running = false;
     }
 
-    public Window() {
-        image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    public Window(Image backgroundImage) {
+        if (backgroundImage == null) {
+            image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        } else {
+            image = backgroundImage;
+        }
 
         canvas = new Canvas();
         canvas.setMinimumSize(windowSize);
         canvas.setMaximumSize(windowSize);
         canvas.setPreferredSize(windowSize);
 
-        frame = new JFrame();
+        frame = this;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.add(canvas, BorderLayout.CENTER);
@@ -73,64 +79,91 @@ public class Window extends Canvas implements Runnable {
         //update method, if needed
     }
 
-    public void render(ArrayList<Drawable> drawingObjects) {
+    @Override
+    public void paintComponents(Graphics graphics){
+        //super.paintComponents(graphics);
+        graphics.setColor(Color.BLACK);
+        graphics.fillRect(0,0,getWidth(),getHeight());
+        drawBackground();
 
-        if(buffStrat == null) {
+        for (Drawable drawable : drawingObjects) {
+            if(drawable instanceof Dialog){
+                drawDialog((Dialog)drawable);
+            }
+        }
+    }
+
+    public void render(ArrayList<Drawable> drawingObjects) {
+       // super.paint(graphics);
+        //frame.repaint();
+        frame.removeAll();
+        frame.update(graphics);
+        this.drawingObjects = drawingObjects;
+        //graphics.clearRect(0,0,getWidth(),getHeight());
+        paintComponents(graphics);
+
+        if (buffStrat == null) {
             frame.createBufferStrategy(3);
             return;
         }
-        graphics = buffStrat.getDrawGraphics();
+       // graphics.dispose();
 
-        //background
+/*        drawBackground();
+
+        for (Drawable drawable : drawingObjects) {
+            if(drawable instanceof Dialog){
+                drawDialog((Dialog)drawable);
+            }
+        }*/
+        //graphics.dispose();
+        //buffStrat.show();
+    }
+
+    private void drawDialog(Dialog dialog) {
+        graphics.setColor(Color.gray);
+        int rectX = WIDTH/2-(int)(WIDTH*0.4);
+        int rectY = HEIGHT/2+40;
+        graphics.fillRoundRect(rectX,rectY, (int)(WIDTH*0.8),(int)(HEIGHT*0.35),30,30);
+        drawText(dialog.getText(),rectX+20,rectY+40);
+        //buffStrat.show();
+    }
+
+    private void drawText(String text, int x, int y) {
+        Font font = new Font("Consolas", Font.PLAIN, 36);
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("C:/Windows/Fonts/mytype.ttf"));
+            font = font.deriveFont(font.getSize() * 50f);
+        } catch (Exception e) {
+
+        }
+        System.out.println("ritar ut " +text);
+        graphics.setFont(font);
+        graphics.setColor(Color.WHITE);
+        graphics.drawString(text, x, y);
+        //buffStrat.show();
+    }
+
+    private void drawBackground() {
+        System.out.println("Drawing background");
+        System.out.println(image);
         graphics.setColor(Color.BLACK);
         graphics.drawImage(image, 0, 0, 800, 500, null);
 
-        //font goes here
-        graphics.setColor(Color.WHITE);
-        String string = "Hej hopp";
-        graphics.drawString(string, 50, 50);
-
-        String fontMessage = "Nya fonten";
-        Font font = new Font("Consolas", Font.PLAIN, 36 );
-        //Font font = null;
-        try{
-             font = Font.createFont(Font.TRUETYPE_FONT, new File("C:/Windows/Fonts/mytype.ttf"));
-            //graphics.setFont(font);
-        }catch(Exception e){
-
-        }
-
-        for(Drawable drawable : drawingObjects){
-
-        }
-
-        font = font.deriveFont(font.getSize()*50f);
-        graphics.setFont(font);//new Font("mvboli", Font.BOLD, 10)
-        //frame.setFont(font);
-        //graphics.setFont(font);
-        graphics.drawString(fontMessage, 100, 100);
-
-
-        graphics.dispose();
-        buffStrat.show();
+        drawText("PRINCESS KNIGHTS",WIDTH/5, 50);
+        //buffStrat.show();
     }
-    public Canvas getCanvas(){
-        return canvas;
-    }
-    public Graphics getGraphics(){
+
+    public Graphics getGraphics() {
         return graphics;
     }
 
-    public BufferStrategy getBuffStrat(){
-        return buffStrat;
-    }
     public static void main(String[] args) {
-        Graphics graphics;
-        Window wind = new Window();
-        wind.render(new ArrayList<>());
+        Window wind = new Window(null);
+        Dialog dialog = new Dialog("Banankaka",2,"4","3","5","r");
+        ArrayList<Drawable> drawables = new ArrayList<>();
+        drawables.add(dialog);
 
-        CustomFont cust = new CustomFont();
-        cust.render(wind);
+        wind.render(drawables);
     }
 }
 
