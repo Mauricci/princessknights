@@ -13,18 +13,16 @@ import java.util.Map;
 
 public class Scene {
     private DialogData currentDialogData;
-    private int choiceOneID;
-    private int choiceTwoID;
-    //collection av dialog
-    private Map<Integer,Dialog> dialogs = new HashMap<>();
-    private Enemy monster = new Enemy(2,2,2,2,2);
-    private int selectedChoice;
+    private String choiceOneID, choiceTwoID;
+    private Map<String,Dialog> dialogs = new HashMap<>();
+    private Enemy monster = new Enemy("2",2,2,2,2,2);
+    private String selectedChoice;
     private int flag;
     //combat mappat till olika dialoger
-    public Scene(Map<Integer, Dialog> dialogs, int firstDialogID){
+
+    public Scene(Map<String, Dialog> dialogs, String firstDialogID){
         this.dialogs = dialogs;
         currentDialogData = new DialogData(firstDialogID,StoryConstants.AUTONEXTQUESTION);
-        //hämta in alla aktuella dialoger
     }
 
     public SceneData doScene(Princess princess){

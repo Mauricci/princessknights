@@ -7,16 +7,19 @@ public class Dialog {
 
     private String text;
     private int flag;
-    private int id;
-    private int choiceOneID, choiceTwoID;
-    private int selectedChoice = 0;
+    private String id;
+    private String choiceOneID, choiceTwoID;
+    private String defaultAtribute;
 
-    public Dialog(String text, int flag, int id, int choiceOneID, int choiceTwoID) {
+    private String selectedChoice = "";
+
+    public Dialog(String text, int flag, String id, String choiceOneID, String choiceTwoID, String attribute) {
         this.text = text;
         this.flag = flag;
         this.id = id;
         this.choiceOneID = choiceOneID;
         this.choiceTwoID = choiceTwoID;
+        this.defaultAtribute = attribute;
     }
 
     public DialogData doDialog(){
@@ -24,7 +27,7 @@ public class Dialog {
         if(flag == StoryConstants.COMBAT || flag == StoryConstants.DONE){
             selectedChoice = choiceOneID;
         }else{
-            while(selectedChoice == 0){
+            while(selectedChoice == null){
                 if(flag == StoryConstants.AUTONEXTQUESTION){
                     selectedChoice = choiceOneID;
                 }else{
