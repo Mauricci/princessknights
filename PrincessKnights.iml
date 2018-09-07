@@ -10,5 +10,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.microsoft.sqlserver:mssql-jdbc:7.0.0.jre10" level="application" />
+    <orderEntry type="library" name="com.microsoft.sqlserver:mssql-jdbc:6.5.4.jre10-preview" level="project" />
   </component>
 </module>
