@@ -1,9 +1,8 @@
 package Story;
 
 import UI.Drawable;
-import java.util.Scanner;
 
-public class Dialog implements Drawable{
+public class Dialog implements Drawable {
     private String text;
     private int flag;
     private String id;
@@ -12,9 +11,7 @@ public class Dialog implements Drawable{
 
     private String selectedChoice;
 
-    public Dialog(String text, int flag, String id, String choiceOneID, String choiceTwoID, String attribute)
-
-    {
+    public Dialog(String text, int flag, String id, String choiceOneID, String choiceTwoID, String attribute) {
         this.text = text;
         this.flag = flag;
         this.id = id;
@@ -24,34 +21,38 @@ public class Dialog implements Drawable{
         selectedChoice = this.id;
     }
 
-    public DialogData doDialog(int choice){
-        if(flag == StoryConstants.COMBAT || flag == StoryConstants.DONE){
+    public DialogData doDialog(int choice) {
+        if (flag == StoryConstants.COMBAT || flag == StoryConstants.DONE) {
             selectedChoice = choiceOneID;
-        }else{
+        } else {
             //if(selectedChoice == null){
-                if(flag == StoryConstants.AUTO_NEXT_QUESTION){
+            if (flag == StoryConstants.AUTO_NEXT_QUESTION) {
+                selectedChoice = choiceOneID;
+            } else {
+                if (choice == 1) {
+                    System.out.println("doing choice one");
                     selectedChoice = choiceOneID;
-                }else{
-                    if(choice == 1){
-                        System.out.println("doing choice one");
-                        selectedChoice = choiceOneID;
-                    }else if(choice == 2){
-                        selectedChoice = choiceTwoID;
-                    }
+                } else if (choice == 2) {
+                    selectedChoice = choiceTwoID;
                 }
-           // }
+            }
+            // }
         }
-    DialogData dialogData = new DialogData(selectedChoice,flag,this);
+
+        DialogData dialogData = new DialogData(selectedChoice, flag, this);
         System.out.println(dialogData);
         return dialogData;
     }
-    public String getText(){
+
+    public String getText() {
         return text;
     }
-    public String getID(){
+
+    public String getID() {
         return id;
     }
-    public int getFlag(){
+
+    public int getFlag() {
         return flag;
     }
 }

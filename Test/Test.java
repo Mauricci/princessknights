@@ -34,9 +34,24 @@ public class Test {
 
         //Test to get all skills of one attribute
         System.out.println("\nSTRENGTH LIST");
-        Skills skills = new Skills(allSkills);
-        List<Skill> strengthList = skills.getSkillWithinRange(AttributeEnum.STRENGTH, 1, 10);
+        Skills strSkills = new Skills(allSkills);
+        List<Skill> strengthList = strSkills.getSkillWithinRange(AttributeEnum.STRENGTH, 1, 10);
         for (Skill skill : strengthList) {
+            System.out.println(skill.getName()
+                    + " "
+                    + skill.getAttributeEnum()
+                    + " "
+                    + skill.getDescription()
+                    + ". Låses upp på "
+                    + skill.getUnlockedLevel()
+                    + ". Bonus: "
+                    + skill.getCombatMod());
+        }
+        
+        System.out.println("\nINTELLIGENCE LIST");
+        Skills intSkills = new Skills(allSkills);
+        List<Skill> intList = intSkills.getSkillWithinRange(AttributeEnum.INTELLIGENCE, 1, 10);
+        for (Skill skill : intList) {
             System.out.println(skill.getName()
                     + " "
                     + skill.getAttributeEnum()

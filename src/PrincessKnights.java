@@ -19,6 +19,7 @@ public class PrincessKnights {
         Repository repository = new Repository(connstr);
 
         Princess princess = new Princess(repository, 5,5,5,5,5,5,new Skills(new ArrayList<>()));
+        TrainingLogic trainingLogic = new TrainingLogic();
 
         boolean firstRun = true;
         Window window = new Window(null);
@@ -33,6 +34,7 @@ public class PrincessKnights {
         scenes.put("5", new Scene("5",dialogs,"2"));
         Scenario scenario = new Scenario(scenes,"5");
 
+        boolean running = true;
         int choice = 0;
         while(running){
             if(!firstRun){
@@ -49,8 +51,7 @@ public class PrincessKnights {
             }
             firstRun = false;
         }
-      
-        boolean running = true;
+
         while(running){
             //Get princess skills and as a list of them
            List<Skill> currentSkills = princess.getCharacterSkillList();
