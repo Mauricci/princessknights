@@ -3,15 +3,15 @@ package Story;
 import GameLogic.CombatResult;
 
 public class SceneData {
-    int id;
+    String id;
     int flag;
 
-    public SceneData(CombatResult combatResult, int id, int flag){
+    public SceneData(CombatResult combatResult, String id, int flag){
         this.id = id;
         this.flag = flag;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

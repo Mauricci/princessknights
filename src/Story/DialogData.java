@@ -1,14 +1,14 @@
 package Story;
 
 public class DialogData {
-    int id;
+    String id;
     int flag;
-    public DialogData(int id, int flag){
+    public DialogData(String id, int flag){
         this.id = id;
         this.flag = flag;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

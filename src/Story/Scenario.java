@@ -9,10 +9,10 @@ import java.util.Map;
 
 public class Scenario {
     //collection av scener
-    private Map<Integer, Scene> scenes;
+    private Map<String, Scene> scenes;
     private SceneData currentSceneData;
 
-    public Scenario(Map<Integer, Scene> scenes, int firstID){
+    public Scenario(Map<String, Scene> scenes, String firstID){
         this.scenes = scenes;
         currentSceneData = new SceneData(null,firstID,StoryConstants.AUTONEXTQUESTION);
     }
