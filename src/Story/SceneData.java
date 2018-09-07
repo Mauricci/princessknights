@@ -2,7 +2,7 @@ package Story;
 
 import GameLogic.CombatResult;
 
-public class SceneData {
+class SceneData {
     String id;
     int flag;
     DialogData dialogData;
@@ -12,17 +12,19 @@ public class SceneData {
         this.flag = flag;
         this.dialogData = dialogData;
     }
-
-    public String getId() {
+  
+    String getId() {
         return id;
     }
 
-    public int getFlag() {
+    int getFlag() {
         return flag;
     }
+  
     public DialogData getDialogData(){
         return dialogData;
     }
+  
     public Dialog getDialog(){
         return dialogData.getDialog();
     }

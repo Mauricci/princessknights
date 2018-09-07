@@ -16,7 +16,7 @@ import java.util.Map;
 public class Repository {
     private Connection dbconn;
 
-    public Repository(String connstr) throws RuntimeException {
+    public Repository(String connstr) {
         try {
             dbconn = DriverManager.getConnection(connstr);
         } catch (SQLException e) {
@@ -25,9 +25,7 @@ public class Repository {
         }
     }
 
-    /**
-     * SKILLS (dat kills)
-     **/
+    /** SKILLS (dat kills) **/
     public List<Skill> getAllSkills() {
         String stmt = "SELECT * FROM dbo.Skill";
 
@@ -48,7 +46,7 @@ public class Repository {
         return skillMasterList;
     }
 
-    public Skill newSkill(ResultSet resultSet) throws SQLException {
+    private Skill newSkill(ResultSet resultSet) throws SQLException {
         AttributeEnum attributeEnum = AttributeEnum.STRENGTH;
 
         switch (resultSet.getString(2)) {
@@ -72,39 +70,42 @@ public class Repository {
     }
 
 
-    /**
-     * ENEMY
-     **/
-    public Enemy getEnemyForScene(int enemyID) {
-        String stmt = "SELECT * FROM dbo.Enemy WHERE ID = ?";
+    /** ENEMY **/
+    public Enemy getEnemyForScene (String sceneID) {
+        String stmt = "SELECT dbo.Enemy.Name, " +
+                "dbo.Enemy.Strength, " +
+                "dbo.Enemy.Speed, " +
+                "dbo.Enemy.Intelligence, " +
+                "dbo.Enemy.Charisma,  " +
+                "dbo.Enemy.HP " +
+                "FROM dbo.Scen " +
+                "WHERE dbo.Scen.ID = ? " +
+                "INNER JOIN dbo.Enemy ON dbo.Scen.EnemyID = dbo.Enemy.ID";
 
-        Enemy enemyForScene = new Enemy("", 0, 0, 0, 0, 0);
+        Enemy enemy = new Enemy("", 0, 0, 0, 0, 0);
 
         try (PreparedStatement sth = dbconn.prepareStatement(stmt)) {
-            sth.setInt(1, enemyID);
+            sth.setString(1, sceneID);
 
             ResultSet res = sth.executeQuery();
 
             if (res.next()) {
-                enemyForScene = new Enemy(res.getString(2),
+                enemy = new Enemy(res.getString(1),
+                        res.getInt(2),
                         res.getInt(3),
                         res.getInt(4),
                         res.getInt(5),
-                        res.getInt(6),
-                        res.getInt(7));
+                        res.getInt(6));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }
-        return enemyForScene;
+        return enemy;
     }
 
-
-    /**
-     * DIALOG, SCENES, AND SCENARIO
-     **/
+    /** DIALOG, SCENES, AND SCENARIO **/
     public List<Scenario> getAllScenarios() {
         List<Scenario> allScenarios = new ArrayList<>();
 

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Scenario {
-    //collection av scener
     private Map<String, Scene> scenes;
     private SceneData currentSceneData;
 
