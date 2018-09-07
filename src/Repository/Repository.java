@@ -22,14 +22,6 @@ public class Repository {
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
-        } finally {
-            if(dbconn != null) {
-                try {
-                    dbconn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
@@ -54,7 +46,7 @@ public class Repository {
         return skillMasterList;
     }
 
-    public Skill newSkill(ResultSet resultSet) throws SQLException {
+    private Skill newSkill(ResultSet resultSet) throws SQLException {
         AttributeEnum attributeEnum = AttributeEnum.STRENGTH;
 
         switch (resultSet.getString(2)) {
