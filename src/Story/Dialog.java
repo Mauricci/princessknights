@@ -3,8 +3,6 @@ package Story;
 import java.util.Scanner;
 
 public class Dialog {
-
-
     private String text;
     private int flag;
     private String id;
