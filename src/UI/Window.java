@@ -10,7 +10,7 @@ import Story.Dialog;
 
 public class Window extends JFrame implements Runnable {
 
-    JFrame frame;
+    JPanel jPanel;
     private final int WIDTH = 800;
     private final int HEIGHT = 500;
     private final Dimension windowSize = new Dimension(WIDTH, HEIGHT);
@@ -58,19 +58,20 @@ public class Window extends JFrame implements Runnable {
         canvas.setMaximumSize(windowSize);
         canvas.setPreferredSize(windowSize);
 
-        frame = this;
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-        frame.add(canvas, BorderLayout.CENTER);
-        frame.pack();
-        frame.setVisible(true);
-        frame.setResizable(false);
-        frame.setTitle(title);
-        frame.setLocationRelativeTo(null);
+
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new BorderLayout());
+        this.add(canvas, BorderLayout.CENTER);
+        this.pack();
+        this.setVisible(true);
+        this.setResizable(false);
+        this.setTitle(title);
+        this.setLocationRelativeTo(null);
 
         canvas.createBufferStrategy(2);
         buffStrat = canvas.getBufferStrategy();
         graphics = buffStrat.getDrawGraphics();
+        jPanel = new JPanel();
 
         //things (dialog/stuff) to render in window goes here
     }
@@ -81,7 +82,7 @@ public class Window extends JFrame implements Runnable {
 
     @Override
     public void paintComponents(Graphics graphics){
-        //super.paintComponents(graphics);
+        super.paintComponents(graphics);
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0,0,getWidth(),getHeight());
         drawBackground();
@@ -91,32 +92,41 @@ public class Window extends JFrame implements Runnable {
                 drawDialog((Dialog)drawable);
             }
         }
+        graphics.dispose();
     }
 
     public void render(ArrayList<Drawable> drawingObjects) {
-       // super.paint(graphics);
-        //frame.repaint();
-        frame.removeAll();
-        frame.update(graphics);
+        buffStrat.dispose();
+        //if (buffStrat == null) {
+            canvas.createBufferStrategy(2);
+            buffStrat = canvas.getBufferStrategy();
+        graphics = buffStrat.getDrawGraphics();
+            //this.createBufferStrategy(3);
+            //return;
+        //}
+        //super.paint(graphics);
+        //jPanel.repaint();
+
+        //jPanel.update(graphics);
+        //System.out.println(jPanel.getGraphics());
+        //graphics = jPanel.getGraphics();
         this.drawingObjects = drawingObjects;
         //graphics.clearRect(0,0,getWidth(),getHeight());
         paintComponents(graphics);
 
-        if (buffStrat == null) {
-            frame.createBufferStrategy(3);
-            return;
-        }
-       // graphics.dispose();
 
-/*        drawBackground();
+       // graphics.dispose();
+/*
+        drawBackground();
 
         for (Drawable drawable : drawingObjects) {
             if(drawable instanceof Dialog){
                 drawDialog((Dialog)drawable);
             }
-        }*/
-        //graphics.dispose();
-        //buffStrat.show();
+        }
+        graphics.dispose();*/
+        buffStrat.show();
+
     }
 
     private void drawDialog(Dialog dialog) {
