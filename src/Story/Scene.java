@@ -7,8 +7,6 @@ import GameLogic.Combat;
 import GameLogic.CombatResult;
 import GameLogic.CombatVariables;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Scene {
@@ -21,7 +19,7 @@ public class Scene {
 
     public Scene(Map<String, Dialog> dialogs, String firstDialogID){
         this.dialogs = dialogs;
-        currentDialogData = new DialogData(firstDialogID,StoryConstants.AUTONEXTQUESTION);
+        currentDialogData = new DialogData(firstDialogID,StoryConstants.AUTO_NEXT_QUESTION);
     }
 
     SceneData doScene(Princess princess){
@@ -38,9 +36,9 @@ public class Scene {
             }
         }
         if(currentDialogData.getFlag() == StoryConstants.DONE) {
-            flag = StoryConstants.SCENARIODONE;
+            flag = StoryConstants.SCENARIO_DONE;
         }else if(combatDone){
-            flag = StoryConstants.COMBATDONE;
+            flag = StoryConstants.COMBAT_DONE;
             if(result.getResult() < 1){
                 selectedChoice = choiceTwoID;
             }else{

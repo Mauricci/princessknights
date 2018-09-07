@@ -28,7 +28,7 @@ public class Dialog {
             selectedChoice = choiceOneID;
         }else{
             while(selectedChoice == null){
-                if(flag == StoryConstants.AUTONEXTQUESTION){
+                if(flag == StoryConstants.AUTO_NEXT_QUESTION){
                     selectedChoice = choiceOneID;
                 }else{
                     Scanner scanner = new Scanner(System.in);

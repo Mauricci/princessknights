@@ -46,7 +46,7 @@ public class Repository {
         return skillMasterList;
     }
 
-    private Skill newSkill(ResultSet resultSet) throws SQLException {
+    private Skill newSkill(ResultSet resultSet) throws SQLException{
         AttributeEnum attributeEnum = AttributeEnum.STRENGTH;
 
         switch (resultSet.getString(2)) {
@@ -79,8 +79,8 @@ public class Repository {
                 "dbo.Enemy.Charisma,  " +
                 "dbo.Enemy.HP " +
                 "FROM dbo.Scen " +
-                "WHERE dbo.Scen.ID = ? " +
-                "INNER JOIN dbo.Enemy ON dbo.Scen.EnemyID = dbo.Enemy.ID";
+                "LEFT JOIN dbo.Enemy ON dbo.Scen.EnemyID = dbo.Enemy.ID " +
+                "WHERE dbo.Scen.ID = ? ";
 
         Enemy enemy = new Enemy("", 0, 0, 0, 0, 0);
 
@@ -97,7 +97,6 @@ public class Repository {
                         res.getInt(5),
                         res.getInt(6));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());

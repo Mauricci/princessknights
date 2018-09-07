@@ -28,16 +28,16 @@ public class PrincessKnights {
             trainingLogic.trainPrincess(princess, princess.getCharacterSkills(), currentSkills.get(1));
 
 
-            Scanner scanner = new Scanner(System.in);
-            Map<String,Scene> scenes = new HashMap<>();
-            Map<String, Dialog> dialogs = new HashMap<>();
-            dialogs.put("2",new Dialog("Här är första dialogen", StoryConstants.DOCHOICE, "2","3","4", "attribute"));
-            dialogs.put("3",new Dialog("Här är andra dialogen", StoryConstants.AUTONEXTQUESTION, "3","4","4", "attribute"));
-            dialogs.put("4",new Dialog("Här är tredje dialogen", StoryConstants.DONE, "4","0","0", "attribute"));
-
-            scenes.put("5", new Scene(dialogs,"2"));
-            Scenario scenario = new Scenario(scenes,"5");
-            running = scenario.doScenario(princess);
+//            Scanner scanner = new Scanner(System.in);
+//            Map<String,Scene> scenes = new HashMap<>();
+//            Map<String, Dialog> dialogs = new HashMap<>();
+//            dialogs.put("2",new Dialog("Här är första dialogen", StoryConstants.DO_CHOICE, "2","3","4", "attribute"));
+//            dialogs.put("3",new Dialog("Här är andra dialogen", StoryConstants.AUTO_NEXT_QUESTION, "3","4","4", "attribute"));
+//            dialogs.put("4",new Dialog("Här är tredje dialogen", StoryConstants.DONE, "4","0","0", "attribute"));
+//
+//            scenes.put("5", new Scene(dialogs,"2"));
+//            Scenario scenario = new Scenario(scenes,"5");
+//            running = scenario.doScenario(princess);
         }
     }
 }
