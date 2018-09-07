@@ -2,16 +2,20 @@ package Characters;
 
 import Characters.Attributes.Attributes;
 import Characters.Skills.CharacterSkills;
+import Characters.Skills.Skill;
 import Characters.Skills.Skills;
+import Repository.Repository;
+
+import java.util.List;
 
 public class Princess extends Character {
     private int trainingPoints;
     private CharacterSkills characterSkills;
 
-    public Princess(int strength, int speed, int intelligence, int charisma, int hp, int trainingPoints, Skills skillsList) {
+    public Princess(Repository repo, int strength, int speed, int intelligence, int charisma, int hp, int trainingPoints, Skills skillsList) {
         this.attributes = new Attributes(strength, speed, intelligence, charisma, hp);
         this.trainingPoints = trainingPoints;
-        this.characterSkills = new CharacterSkills(this.attributes, skillsList);
+        this.characterSkills = new CharacterSkills(repo, this.attributes);
     }
 
     public int getTrainingPoints() {
@@ -24,6 +28,10 @@ public class Princess extends Character {
 
     public CharacterSkills getCharacterSkills() {
         return this.characterSkills;
+    }
+
+    public List<Skill> getCharacterSkillList() {
+        return this.characterSkills.getCharacterSkillList();
     }
 
     public void addStrength(int strength) {

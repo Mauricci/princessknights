@@ -16,17 +16,16 @@ public class PrincessKnights {
         String connstr = args[0];
         Repository repository = new Repository(connstr);
 
-        Princess princess = new Princess(5,5,5,5,5,5,new Skills(new ArrayList<>()));
+        Princess princess = new Princess(repository, 5,5,5,5,5,5,new Skills(new ArrayList<>()));
         TrainingLogic trainingLogic = new TrainingLogic();
 
         boolean running = true;
         while(running){
-            //Get princess skills and make a list of them
-            CharacterSkills princessSkills = new CharacterSkills(repository, princess.getAttributes());
-            List<Skill> currentSkills = princessSkills.getCharacterSkillList();
+            //Get princess skills and as a list of them
+           List<Skill> currentSkills = princess.getCharacterSkillList();
 
             //when press training button run following on chosen skill:
-            trainingLogic.trainPrincess(princess, princessSkills, currentSkills.get(1));
+            trainingLogic.trainPrincess(princess, princess.getCharacterSkills(), currentSkills.get(1));
 
 
             Scanner scanner = new Scanner(System.in);
