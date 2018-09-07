@@ -3,9 +3,11 @@ package Story;
 public class DialogData {
     String id;
     int flag;
-    public DialogData(String id, int flag){
+    Dialog dialog;
+    public DialogData(String id, int flag, Dialog dialog){
         this.id = id;
         this.flag = flag;
+        this.dialog = dialog;
     }
 
     public String getId() {
@@ -14,5 +16,8 @@ public class DialogData {
 
     public int getFlag() {
         return flag;
+    }
+    public Dialog getDialog(){
+        return dialog;
     }
 }

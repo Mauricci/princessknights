@@ -14,17 +14,18 @@ public class Scenario {
 
     public Scenario(Map<String, Scene> scenes, String firstID){
         this.scenes = scenes;
-        currentSceneData = new SceneData(null,firstID,StoryConstants.AUTONEXTQUESTION);
+        Scene firstScene = scenes.get(firstID);
+        currentSceneData = new SceneData(null,firstID,StoryConstants.AUTONEXTQUESTION,new DialogData(firstScene.getFirstDialogID(),firstScene.getFirstDialogFlag(),null));
     }
-    public boolean doScenario(Princess princess){
-        while(currentSceneData.getFlag() != StoryConstants.SCENARIODONE && currentSceneData.getFlag() != StoryConstants.COMBATDONE ) {
-            currentSceneData = scenes.get(currentSceneData.getId()).doScene(princess);
+    public SceneData doScenario(Princess princess,int choice){
+        if(currentSceneData.getFlag() != StoryConstants.SCENARIODONE && currentSceneData.getFlag() != StoryConstants.COMBATDONE ) {
+            currentSceneData = scenes.get(currentSceneData.getId()).doScene(princess, choice);
             if(currentSceneData.getFlag() == StoryConstants.COMBATDONE){
                 //do some stuff
                 System.out.println("Nu har vi gjort en combat!");
             }
         }
-        return false;
+        return currentSceneData;
 
     }
 }

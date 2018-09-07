@@ -12,25 +12,30 @@ import java.util.List;
 import java.util.Map;
 
 public class Scene {
+    String id;
     private DialogData currentDialogData;
     private String choiceOneID, choiceTwoID;
     private Map<String,Dialog> dialogs = new HashMap<>();
     private Enemy monster = new Enemy("2",2,2,2,2,2);
     private String selectedChoice;
     private int flag;
+    private String firstDialogID;
     //combat mappat till olika dialoger
 
-    public Scene(Map<String, Dialog> dialogs, String firstDialogID){
+    public Scene(String sceneID,Map<String, Dialog> dialogs, String firstDialogID){
+        this.id = sceneID;
         this.dialogs = dialogs;
-        currentDialogData = new DialogData(firstDialogID,StoryConstants.AUTONEXTQUESTION);
+        this.firstDialogID = firstDialogID;
+        this.selectedChoice = this.id;
+        currentDialogData = new DialogData(firstDialogID,StoryConstants.AUTONEXTQUESTION,dialogs.get(firstDialogID));
     }
 
-    public SceneData doScene(Princess princess){
+    public SceneData doScene(Princess princess, int choice){
         CombatResult result = null;
         boolean combatDone = false;
-        while(currentDialogData.getFlag() != StoryConstants.DONE && !combatDone){
+        if(currentDialogData.getFlag() != StoryConstants.DONE && !combatDone){
 
-            currentDialogData = dialogs.get(currentDialogData.getId()).doDialog();
+            currentDialogData = dialogs.get(currentDialogData.getId()).doDialog(choice);
 
             if(currentDialogData.getFlag() == StoryConstants.COMBAT){
                 Combat combat = new Combat();
@@ -48,6 +53,13 @@ public class Scene {
                 selectedChoice = choiceOneID;
             }
         }
-        return new SceneData(result, selectedChoice, flag);
+        System.out.println(currentDialogData);
+        return new SceneData(result, selectedChoice, flag,currentDialogData);//, dialogs.get(currentDialogData.getId())
+    }
+    public String getFirstDialogID(){
+        return dialogs.get(firstDialogID).getID();
+    }
+    public int getFirstDialogFlag(){
+        return dialogs.get(firstDialogID).getFlag();
     }
 }
