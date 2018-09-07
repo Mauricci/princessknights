@@ -2,16 +2,17 @@ package TrainingLogic;
 
 import Characters.CharacterConstants;
 import Characters.Attributes.AttributeEnum;
+import Characters.Skills.CharacterSkills;
 import Characters.Skills.Skill;
 import Characters.Princess;
 
 public class TrainingLogic {
 
-    public void trainAttribute(Princess princess, Skill skill) {
-        //connect to click on increment training in window
-
+    public void trainPrincess(Princess princess, CharacterSkills characterSkills, Skill skill) {
         checkSkillAndRemoveCost(princess, skill);
         addStatToPrincess(princess, skill);
+        updateSkills(princess, characterSkills, skill);
+
     }
 
     private void checkSkillAndRemoveCost(Princess princess, Skill skill) {
@@ -22,7 +23,6 @@ public class TrainingLogic {
             }
         }
     }
-
     private void addStatToPrincess(Princess princess, Skill skill) {
         if (skill.getSkillLevel() == CharacterConstants.SKILL_MAX_LEVEL && !skill.isSkillIsMaxed()) {
             AttributeEnum ae = skill.getAttributeEnum();
@@ -30,6 +30,7 @@ public class TrainingLogic {
                 case STRENGTH:
                     princess.addStrength(1);
                     skill.setSkillIsMaxed();
+
                     break;
                 case SPEED:
                     princess.addSpeed(1);
@@ -45,5 +46,25 @@ public class TrainingLogic {
                     break;
             }
         }
+    }
+    private void updateSkills(Princess princess, CharacterSkills characterSkills, Skill skill) {
+        int princessAttributeInSkill = 0;
+
+        switch (skill.getAttributeEnum()) {
+            case STRENGTH:
+                princessAttributeInSkill = princess.getAttributes().getStrength();
+                break;
+            case SPEED:
+                princessAttributeInSkill = princess.getAttributes().getSpeed();
+                break;
+            case INTELLIGENCE:
+                princessAttributeInSkill = princess.getAttributes().getIntelligence();
+                break;
+            case CHARISMA:
+                princessAttributeInSkill = princess.getAttributes().getCharisma();
+                break;
+        }
+
+        characterSkills.updateCharacterSkills(skill.getAttributeEnum(), princessAttributeInSkill);
     }
 }

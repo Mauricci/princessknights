@@ -33,7 +33,7 @@ public class Test {
         TrainingLogic trainingLogic = new TrainingLogic();
         Skill skill = skillList.get(1);
         for (int i = 0; i < 15; i++) {
-            trainingLogic.trainAttribute(princess, skill);
+            trainingLogic.trainPrincess(princess, skill);
             System.out.println(skill.getName() + " " + skill.getSkillLevel());
             System.out.println("princess charisma " + princess.getAttributes().getCharisma());
         }

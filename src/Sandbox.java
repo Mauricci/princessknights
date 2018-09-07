@@ -27,10 +27,10 @@ public class Sandbox {
 
         Skill skill = new Skill("test", "test", AttributeEnum.INTELLIGENCE, 5, 6);
 
-        Enemy enemy = new Enemy(1, 2, 3, 4, 5);
+        Enemy enemy = new Enemy("name", 1, 2, 3, 4, 5);
 
         TrainingLogic trainingLogic = new TrainingLogic();
-        trainingLogic.trainAttribute(princess, skill);
+        trainingLogic.trainPrincess(princess, skill);
 
         Combat combat = new Combat();
 
