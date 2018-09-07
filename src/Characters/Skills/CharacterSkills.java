@@ -2,6 +2,7 @@ package Characters.Skills;
 
 import Characters.Attributes.AttributeEnum;
 import Characters.Attributes.Attributes;
+import Repository.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +10,13 @@ import java.util.List;
 public class CharacterSkills {
     private List<Skill> characterSkillList = new ArrayList<>();
     private Skills masterList;
+    private Repository repository;
 
-    public CharacterSkills(Attributes attributes, Skills masterList) {
-        this.masterList = masterList;
+    public CharacterSkills(Repository repository, Attributes attributes) {
+        this.repository = repository;
+
+        List<Skill> allSkills = repository.getAllSkills();
+        this.masterList = new Skills(allSkills);
 
         int[] attrArray = {attributes.getStrength(),
                 attributes.getSpeed(),
