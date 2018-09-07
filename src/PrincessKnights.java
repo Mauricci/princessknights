@@ -57,7 +57,6 @@ public class PrincessKnights {
 
             //when press training button run following on chosen skill:
             trainingLogic.trainPrincess(princess, princess.getCharacterSkills(), currentSkills.get(1));
-
         }
     }
 }

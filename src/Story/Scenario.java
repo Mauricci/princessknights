@@ -17,9 +17,9 @@ public class Scenario {
         currentSceneData = new SceneData(null,firstID,StoryConstants.AUTONEXTQUESTION,new DialogData(firstScene.getFirstDialogID(),firstScene.getFirstDialogFlag(),null));
     }
     public SceneData doScenario(Princess princess,int choice){
-        if(currentSceneData.getFlag() != StoryConstants.SCENARIODONE && currentSceneData.getFlag() != StoryConstants.COMBATDONE ) {
+        if(currentSceneData.getFlag() != StoryConstants.SCENARIO_DONE && currentSceneData.getFlag() != StoryConstants.COMBAT_DONE ) {
             currentSceneData = scenes.get(currentSceneData.getId()).doScene(princess, choice);
-            if(currentSceneData.getFlag() == StoryConstants.COMBATDONE){
+            if(currentSceneData.getFlag() == StoryConstants.COMBAT_DONE){
                 //do some stuff
                 System.out.println("Nu har vi gjort en combat!");
             }

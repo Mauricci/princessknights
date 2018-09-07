@@ -7,8 +7,6 @@ import GameLogic.Combat;
 import GameLogic.CombatResult;
 import GameLogic.CombatVariables;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Scene {

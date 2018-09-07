@@ -1,12 +1,9 @@
 package Story;
 
 import UI.Drawable;
-
 import java.util.Scanner;
 
 public class Dialog implements Drawable{
-
-
     private String text;
     private int flag;
     private String id;
@@ -32,7 +29,7 @@ public class Dialog implements Drawable{
             selectedChoice = choiceOneID;
         }else{
             //if(selectedChoice == null){
-                if(flag == StoryConstants.AUTONEXTQUESTION){
+                if(flag == StoryConstants.AUTO_NEXT_QUESTION){
                     selectedChoice = choiceOneID;
                 }else{
                     if(choice == 1){
