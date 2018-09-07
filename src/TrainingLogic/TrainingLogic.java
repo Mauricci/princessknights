@@ -7,7 +7,6 @@ import Characters.Skills.Skill;
 import Characters.Princess;
 
 public class TrainingLogic {
-
     public void trainPrincess(Princess princess, CharacterSkills characterSkills, Skill skill) {
         checkSkillAndRemoveCost(princess, skill);
         addStatToPrincess(princess, skill);
