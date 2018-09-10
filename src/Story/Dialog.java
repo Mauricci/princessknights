@@ -10,6 +10,7 @@ public class Dialog implements Drawable {
     private String defaultAtribute;
 
     private String selectedChoice;
+    private String otherChoice;
 
     public Dialog(String text, int flag, String id, String choiceOneID, String choiceTwoID, String attribute) {
         this.text = text;
@@ -24,22 +25,22 @@ public class Dialog implements Drawable {
     public DialogData doDialog(int choice) {
         if (flag == StoryConstants.COMBAT || flag == StoryConstants.DONE) {
             selectedChoice = choiceOneID;
+            otherChoice = choiceTwoID;
         } else {
-            //if(selectedChoice == null){
-            if (flag == StoryConstants.AUTO_NEXT_QUESTION) {
+            if (flag == StoryConstants.AUTO_NEXT_DIALOG) {
                 selectedChoice = choiceOneID;
             } else {
                 if (choice == 1) {
-                    System.out.println("doing choice one");
                     selectedChoice = choiceOneID;
+
                 } else if (choice == 2) {
                     selectedChoice = choiceTwoID;
                 }
             }
-            // }
+            // PUT PRE-COMBAT CHOICE TO DIALOG DATA
         }
 
-        DialogData dialogData = new DialogData(selectedChoice, flag, this);
+        DialogData dialogData = new DialogData(selectedChoice, otherChoice, flag, this);
         System.out.println(dialogData);
         return dialogData;
     }

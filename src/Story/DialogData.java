@@ -1,18 +1,24 @@
 package Story;
 
 public class DialogData {
-    String id;
+    String selectedChoice;
+    String otherChoice;
     int flag;
     Dialog dialog;
   
-  public DialogData(String id, int flag, Dialog dialog){
-        this.id = id;
+  public DialogData(String selectedChoice, String otherChoice, int flag, Dialog dialog){
+        this.selectedChoice = selectedChoice;
+        this.otherChoice = otherChoice;
         this.flag = flag;
         this.dialog = dialog;
     }
 
-    String getId() {
-        return id;
+    String getSelectedChoice() {
+        return selectedChoice;
+    }
+
+    String getOtherChoice() {
+      return otherChoice;
     }
 
     int getFlag() {

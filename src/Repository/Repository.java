@@ -46,26 +46,32 @@ public class Repository {
         return skillMasterList;
     }
 
-    private Skill newSkill(ResultSet resultSet) throws SQLException{
+    private Skill newSkill(ResultSet resultSet){
+        Skill skill = new Skill("", "", AttributeEnum.STRENGTH, 0, 0);
         AttributeEnum attributeEnum = AttributeEnum.STRENGTH;
 
-        switch (resultSet.getString(2)) {
-            case "SPEED":
-                attributeEnum = AttributeEnum.SPEED;
-                break;
-            case "INTELLIGENCE":
-                attributeEnum = AttributeEnum.INTELLIGENCE;
-                break;
-            case "CHARISMA":
-                attributeEnum = AttributeEnum.CHARISMA;
-                break;
+        try {
+            switch (resultSet.getString(2)) {
+                case "SPEED":
+                    attributeEnum = AttributeEnum.SPEED;
+                    break;
+                case "INTELLIGENCE":
+                    attributeEnum = AttributeEnum.INTELLIGENCE;
+                    break;
+                case "CHARISMA":
+                    attributeEnum = AttributeEnum.CHARISMA;
+                    break;
+            }
+
+            skill = new Skill(resultSet.getString(3),
+                    resultSet.getString(4),
+                    attributeEnum,
+                    resultSet.getInt(5),
+                    resultSet.getInt(6));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        Skill skill = new Skill(resultSet.getString(3),
-                resultSet.getString(4),
-                attributeEnum,
-                resultSet.getInt(5),
-                resultSet.getInt(6));
         return skill;
     }
 
@@ -156,6 +162,11 @@ public class Repository {
         String stmt = "SELECT * FROM dbo.Scenedialogs WHERE ID = ?";
         Map<String, Dialog> newSceneMap = new HashMap<>();
         String firstDialogID = "";
+        Enemy enemy = null;
+
+        if(getEnemyForScene(sceneID) != null) {
+            enemy = getEnemyForScene(sceneID);
+        }
 
         try (PreparedStatement sth = dbconn.prepareStatement(stmt)) {
             sth.setString(1, sceneID);
@@ -164,6 +175,9 @@ public class Repository {
                 firstDialogID = res.getString(2);
                 String dialogID = res.getString(1);
                 newSceneMap.put(dialogID, getDialog(dialogID));
+                if (checkSceneForEnemy(sceneID)) {
+                    enemy = getEnemyForScene(sceneID);
+                }
             }
             while (res.next()) {
                 String dialogID = res.getString(1);
@@ -174,7 +188,25 @@ public class Repository {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }
-        return new Scene(sceneID,newSceneMap, firstDialogID);
+        return new Scene(sceneID, enemy, newSceneMap, firstDialogID);
+    }
+
+    public boolean checkSceneForEnemy(String sceneID) {
+        String stmt = "SELECT * FROM dbo.Scen WHERE ID = ?";
+        try (PreparedStatement sth = dbconn.prepareStatement(stmt)) {
+            sth.setString(1, sceneID);
+            ResultSet res = sth.executeQuery();
+            if (res.next()) {
+                if (res.getInt(2) != 0) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public Dialog getDialog(String dialogID) {

@@ -1,13 +1,11 @@
 package Story;
 
-import GameLogic.CombatResult;
-
 public class SceneData {
     String id;
     int flag;
     DialogData dialogData;
 
-    public SceneData(CombatResult combatResult, String id, int flag, DialogData dialogData){
+    public SceneData(String id, int flag, DialogData dialogData){
         this.id = id;
         this.flag = flag;
         this.dialogData = dialogData;

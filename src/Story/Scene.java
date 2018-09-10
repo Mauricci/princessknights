@@ -12,52 +12,58 @@ import java.util.Map;
 public class Scene {
     String id;
     private DialogData currentDialogData;
-    private String choiceOneID, choiceTwoID;
     private Map<String,Dialog> dialogs;
-    private Enemy monster;
+    private Enemy enemy;
     private String selectedChoice;
     private int flag;
     private String firstDialogID;
 
-    public Scene(String sceneID,Map<String, Dialog> dialogs, String firstDialogID){
+    public Scene(String sceneID, Enemy enemy, Map<String, Dialog> dialogs, String firstDialogID){
         this.id = sceneID;
+        this.enemy = enemy;
         this.dialogs = dialogs;
         this.firstDialogID = firstDialogID;
         this.selectedChoice = this.id;
-        currentDialogData = new DialogData(firstDialogID,StoryConstants.AUTO_NEXT_QUESTION,dialogs.get(firstDialogID));
+        currentDialogData = new DialogData(firstDialogID, "", StoryConstants.AUTO_NEXT_DIALOG, dialogs.get(firstDialogID));
     }
-  
+
     public SceneData doScene(Princess princess, int choice){
         CombatResult result = null;
         boolean combatDone = false;
-      
-        if(currentDialogData.getFlag() != StoryConstants.DONE && !combatDone){
-            currentDialogData = dialogs.get(currentDialogData.getId()).doDialog(choice);
+
+        if(currentDialogData.getFlag() != StoryConstants.DONE){
+            currentDialogData = dialogs.get(currentDialogData.getSelectedChoice()).doDialog(choice);
             if(currentDialogData.getFlag() == StoryConstants.COMBAT){
                 Combat combat = new Combat();
-                result = combat.calculateCombatResult(new CombatVariables(princess, AttributeEnum.CHARISMA), new CombatVariables(monster, AttributeEnum.CHARISMA));
+                result = combat.calculateCombatResult(new CombatVariables(princess, AttributeEnum.CHARISMA), new CombatVariables(enemy, AttributeEnum.CHARISMA));
                 combatDone = true;
+                flag = StoryConstants.COMBAT_DONE;
             }
         }
-      
+
         if(currentDialogData.getFlag() == StoryConstants.DONE) {
             flag = StoryConstants.SCENARIO_DONE;
+            // IF DEPENDING ON CHOICES
+            if (choice == 1) {
+                selectedChoice = currentDialogData.selectedChoice;
+
+            } else if (choice == 2) {
+                selectedChoice = currentDialogData.otherChoice;
+            }
         }else if(combatDone){
-            flag = StoryConstants.COMBAT_DONE;
             if(result.getResult() < 1){
-                selectedChoice = choiceTwoID;
+                selectedChoice = currentDialogData.selectedChoice;
             }else{
-                selectedChoice = choiceOneID;
+                selectedChoice = currentDialogData.otherChoice;
             }
         }
-        System.out.println(currentDialogData);
-        return new SceneData(result, selectedChoice, flag, currentDialogData);//, dialogs.get(currentDialogData.getId())
+        return new SceneData(selectedChoice, flag, currentDialogData);
     }
-  
+
     public String getFirstDialogID(){
         return dialogs.get(firstDialogID).getID();
     }
-  
+
     public int getFirstDialogFlag(){
         return dialogs.get(firstDialogID).getFlag();
     }
