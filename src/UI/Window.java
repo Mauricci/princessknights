@@ -1,10 +1,15 @@
 package UI;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.ButtonUI;
+import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import Story.Dialog;
 
@@ -18,7 +23,10 @@ public class Window extends JFrame implements Runnable {
     private Graphics graphics;
     private BufferStrategy buffStrat;
     private final String title = "Princess Knights";
+    Font font;
     private JButton optionOne, optionTwo;
+    private int buttonWidth = 100;
+    private int buttonHeigth = 40;
 
     Image image;
 
@@ -48,6 +56,7 @@ public class Window extends JFrame implements Runnable {
     }
 
     public Window(Image backgroundImage) {
+        getContentPane().setLayout(null);
         if (backgroundImage == null) {
             image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         } else {
@@ -74,7 +83,38 @@ public class Window extends JFrame implements Runnable {
         graphics = buffStrat.getDrawGraphics();
         jPanel = new JPanel();
 
+        add(optionOne);
+
+        optionOne.setBounds(WIDTH  / 2, 150, buttonWidth, buttonHeigth);
+        getContentPane().add(optionOne);
+
+//        optionOne = new JButton("En fin knapp att trycka på");
+//        optionOne.setBackground(Color.LIGHT_GRAY);
+//        optionOne.setForeground(Color.CYAN);
+//        optionOne.setFocusPainted(false);
+//        optionOne.setBorderPainted(false);
+//        optionOne.setFont(new Font("Tahoma", Font.BOLD, 24));
+//        optionOne.setIcon(new ImageIcon("/res/images/buttonTest.png"));
+//        optionOne.setVisible(true);
+//        optionOne.setBounds(50, 50, 50, 50);
+//        ButtonUI ui = new BasicButtonUI();
+//        optionOne.setUI(ui);
+//        this.add(optionOne);
+//        this.setVisible(true);
+//
+//        optionTwo = new JButton();
+//        optionTwo.setBackground(Color.LIGHT_GRAY);
+//        optionTwo.setForeground(Color.CYAN);
+//        optionTwo.setFocusPainted(false);
+//        optionTwo.setFont(new Font("Tahoma", Font.BOLD, 24));
+//        jPanel.add(optionTwo);
+//        jPanel.setVisible(true);
+
         //things (dialog/stuff) to render in window goes here
+    }
+
+    public void addButtons() {
+        optionOne = new JButton("En fin knapp");
     }
 
     public void tick() {
@@ -114,6 +154,7 @@ public class Window extends JFrame implements Runnable {
         this.drawingObjects = drawingObjects;
         //graphics.clearRect(0,0,getWidth(),getHeight());
         paintComponents(graphics);
+        drawButton();
 
 
        // graphics.dispose();
@@ -131,19 +172,16 @@ public class Window extends JFrame implements Runnable {
     }
 
     private void drawDialog(Dialog dialog) {
-        optionOne = new JButton();
-        optionTwo = new JButton();
         graphics.setColor(Color.gray);
         int rectX = WIDTH/2-(int)(WIDTH*0.4);
         int rectY = HEIGHT/2+40;
         graphics.fillRoundRect(rectX,rectY, (int)(WIDTH*0.8),(int)(HEIGHT*0.35),30,30);
         drawText(dialog.getText(),rectX+20,rectY+40);
         //buffStrat.show();
-
     }
 
     private void drawText(String text, int x, int y) {
-        Font font = new Font("Consolas", Font.PLAIN, 36);
+        font = new Font("Consolas", Font.PLAIN, 36);
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, new File("C:/Windows/Fonts/mytype.ttf"));
             font = font.deriveFont(font.getSize() * 50f);
@@ -165,6 +203,18 @@ public class Window extends JFrame implements Runnable {
 
         drawText("PRINCESS KNIGHTS",WIDTH/5, 50);
         //buffStrat.show();
+    }
+
+    public void drawButton() {
+
+//        try {
+//            InputStream imageInput = this.getClass().getResourceAsStream("/res/images/buttonTest.png");
+//            BufferedImage buffImage = ImageIO.read(imageInput);
+//            this.setIconImage(buffImage);
+//            this.paintComponents(graphics);
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
     }
 
     public Graphics getGraphics() {
