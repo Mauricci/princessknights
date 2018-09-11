@@ -5,8 +5,8 @@ import Story.Scenario;
 import Story.SceneData;
 import Story.StoryConstants;
 import TrainingLogic.TrainingLogic;
+import UI.Drawable;
 import UI.Window;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -47,7 +47,6 @@ public class Game {
         boolean firstRun = true;
         int choice = 0;
 
-
         while(running) {
             if(!firstRun){
                 choice = scanner.nextInt();
@@ -57,6 +56,9 @@ public class Game {
             }
             Scenario scenario = scenarioList.get(0);
             SceneData currentScene = scenario.doScenario(princess, choice);
+            ArrayList<Drawable> drawable = new ArrayList<>();
+            drawable.add(currentScene.getDialog());
+            window.render(drawable);
             if(currentScene.getFlag() == StoryConstants.SCENARIO_DONE){
                  running = false;
             }
