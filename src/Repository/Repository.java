@@ -141,14 +141,16 @@ public class Repository {
 
             sth.setString(1, scenarioID);
             ResultSet res = sth.executeQuery();
-            if(res.next()){
-                firstSceneID = res.getString(1);
-                sceneMap.put(firstSceneID,getScene(firstSceneID));
-            }
+//            if(res.next()){
+//                firstSceneID = res.getString(1);
+//                sceneMap.put(firstSceneID,getScene(firstSceneID));
+//            }
 
-            while (res.next()) {
-                String sceneID = res.getString(1);
-                sceneMap.put(sceneID,getScene(sceneID));
+            if (res.next()) {
+                firstSceneID = res.getString(2);
+//                String sceneID = res.getString(1);
+//                sceneMap.put(sceneID,getScene(sceneID));
+                sceneMap = getScenesForScenario(scenarioID);
             }
 
         } catch (SQLException e) {
@@ -158,8 +160,27 @@ public class Repository {
         return new Scenario(sceneMap,firstSceneID);
     }
 
+    private Map<String,Scene> getScenesForScenario(String scenarioID) {
+        String stmt = "SELECT * FROM dbo.Scen WHERE ScenarioID = ?";
+        Map<String, Scene> sceneMap = new HashMap<>();
+
+        try (PreparedStatement sth = dbconn.prepareStatement(stmt)) {
+            sth.setString(1, scenarioID);
+            ResultSet res = sth.executeQuery();
+            while(res.next()) {
+                String sceneID = res.getString(1);
+                Scene scene = getScene(sceneID);
+                sceneMap.put(sceneID, scene);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        return sceneMap;
+    }
+
     public Scene getScene(String sceneID) {
-        String stmt = "SELECT * FROM dbo.Scenedialogs WHERE ID = ?";
+        String stmt = "SELECT * FROM dbo.SceneDialog WHERE ScenID = ?";
         Map<String, Dialog> newSceneMap = new HashMap<>();
         String firstDialogID = "";
         Enemy enemy = null;
@@ -173,14 +194,14 @@ public class Repository {
             ResultSet res = sth.executeQuery();
             if(res.next()) {
                 firstDialogID = res.getString(2);
-                String dialogID = res.getString(1);
-                newSceneMap.put(dialogID, getDialog(dialogID));
+//                String dialogID = res.getString(1);
+                newSceneMap.put(firstDialogID, getDialog(firstDialogID));
                 if (checkSceneForEnemy(sceneID)) {
                     enemy = getEnemyForScene(sceneID);
                 }
             }
             while (res.next()) {
-                String dialogID = res.getString(1);
+                String dialogID = res.getString(2);
                 newSceneMap.put(dialogID, getDialog(dialogID));
             }
 

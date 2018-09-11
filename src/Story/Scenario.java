@@ -13,8 +13,9 @@ public class Scenario {
 
     public Scenario(Map<String, Scene> scenes, String firstID){
         this.scenes = scenes;
-        Scene firstScene = scenes.get(firstID);
-        currentSceneData = new SceneData(firstID,StoryConstants.AUTO_NEXT_DIALOG,new DialogData(firstScene.getFirstDialogID(), "", firstScene.getFirstDialogFlag(),null));
+        Scene firstScene = this.scenes.get(firstID);
+        DialogData dialogData = new DialogData(firstScene.getFirstDialogID(), "", firstScene.getFirstDialogFlag(),null);
+        currentSceneData = new SceneData(firstID,StoryConstants.AUTO_NEXT_DIALOG, dialogData);
     }
     public SceneData doScenario(Princess princess,int choice){
         if(currentSceneData.getFlag() != StoryConstants.SCENARIO_DONE) {
