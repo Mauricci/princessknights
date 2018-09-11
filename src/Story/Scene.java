@@ -35,23 +35,30 @@ public class Scene {
             currentDialogData = dialogs.get(currentDialogData.getSelectedChoice()).doDialog(choice);
             if(currentDialogData.getFlag() == StoryConstants.COMBAT){
                 Combat combat = new Combat();
-                result = combat.calculateCombatResult(new CombatVariables(princess, AttributeEnum.CHARISMA), new CombatVariables(enemy, AttributeEnum.CHARISMA));
+                AttributeEnum attributeEnum = currentDialogData.getDialog().getDefaultAtribute();
+                result = combat.calculateCombatResult(new CombatVariables(princess, attributeEnum), new CombatVariables(enemy, attributeEnum));
                 combatDone = true;
                 flag = StoryConstants.COMBAT_DONE;
             }
         }
 
         if(currentDialogData.getFlag() == StoryConstants.DONE) {
-            flag = StoryConstants.SCENARIO_DONE;
-            // IF DEPENDING ON CHOICES
-            if (choice == 1) {
-                selectedChoice = currentDialogData.selectedChoice;
-
-            } else if (choice == 2) {
-                selectedChoice = currentDialogData.otherChoice;
+            if(currentDialogData.selectedChoice == null){
+                flag = StoryConstants.SCENARIO_DONE;
             }
+            else {
+                selectedChoice = currentDialogData.selectedChoice;
+            }
+//
+            // IF DEPENDING ON CHOICES
+//            if (choice == 1) {
+//
+//
+//            } else if (choice == 2) {
+//                selectedChoice = currentDialogData.otherChoice;
+//            }
         }else if(combatDone){
-            if(result.getResult() < 1){
+            if(result.getResult() == 1){
                 selectedChoice = currentDialogData.selectedChoice;
             }else{
                 selectedChoice = currentDialogData.otherChoice;

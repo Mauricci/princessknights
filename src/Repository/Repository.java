@@ -21,6 +21,8 @@ public class Repository {
             dbconn = DriverManager.getConnection(connstr);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Repository repositoryError");
+
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -41,6 +43,8 @@ public class Repository {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("getAllSkills repositoryError");
+
             throw new RuntimeException(e.getMessage());
         }
         return skillMasterList;
@@ -70,6 +74,8 @@ public class Repository {
                     resultSet.getInt(6));
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("newSkill repositoryError");
+
         }
 
         return skill;
@@ -105,6 +111,8 @@ public class Repository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("getEnemyForScene repositoryError");
+
             throw new RuntimeException(e.getMessage());
         }
         return enemy;
@@ -127,6 +135,8 @@ public class Repository {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("getAllScenatios repositoryError");
+
             throw new RuntimeException(e.getMessage());
         }
         return allScenarios;
@@ -155,6 +165,8 @@ public class Repository {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("getScenario repositoryError");
+
             throw new RuntimeException(e.getMessage());
         }
         return new Scenario(sceneMap,firstSceneID);
@@ -175,13 +187,15 @@ public class Repository {
         }
         catch (Exception e) {
             System.out.println(e);
+            System.out.println("getScenesForScenario repositoryError");
+
         }
         return sceneMap;
     }
 
     public Scene getScene(String sceneID) {
         String stmt = "SELECT * FROM dbo.SceneDialog WHERE ScenID = ?";
-        Map<String, Dialog> newSceneMap = new HashMap<>();
+        Map<String, Dialog> dialogMap = new HashMap<>();
         String firstDialogID = "";
         Enemy enemy = null;
 
@@ -195,21 +209,23 @@ public class Repository {
             if(res.next()) {
                 firstDialogID = res.getString(2);
 //                String dialogID = res.getString(1);
-                newSceneMap.put(firstDialogID, getDialog(firstDialogID));
+                Dialog dialog = getDialog(firstDialogID);
+                dialogMap.put(firstDialogID, dialog);
                 if (checkSceneForEnemy(sceneID)) {
                     enemy = getEnemyForScene(sceneID);
                 }
             }
             while (res.next()) {
                 String dialogID = res.getString(2);
-                newSceneMap.put(dialogID, getDialog(dialogID));
+                dialogMap.put(dialogID, getDialog(dialogID));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("getScene repositoryError");
             throw new RuntimeException(e.getMessage());
         }
-        return new Scene(sceneID, enemy, newSceneMap, firstDialogID);
+        return new Scene(sceneID, enemy, dialogMap, firstDialogID);
     }
 
     public boolean checkSceneForEnemy(String sceneID) {
@@ -226,6 +242,7 @@ public class Repository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("checkSceneForEnemy repositoryError");
         }
         return false;
     }
@@ -238,15 +255,18 @@ public class Repository {
 
             ResultSet res = sth.executeQuery();
             if(res.next()) {
-                dialog = new Dialog(res.getString(2),
-                                    res.getInt(5),
-                                    res.getString(1),
-                                    res.getString(3),
-                                    res.getString(4),
-                                    res.getString(6));
+                String ett = res.getString(2);
+                int två = res.getInt(5);
+                String tre = res.getString(1);
+                String fyra = res.getString(3);
+                String fem = res.getString(4);
+                String sex = res.getString(6);
+                dialog = new Dialog(ett, två, tre, fyra, fem, sex);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("getDialog repositoryError");
             throw new RuntimeException(e.getMessage());
         }
         return dialog;
