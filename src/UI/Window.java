@@ -176,15 +176,17 @@ public class Window extends JFrame implements Runnable {
         int rectX = WIDTH/2-(int)(WIDTH*0.4);
         int rectY = HEIGHT/2+40;
         graphics.fillRoundRect(rectX,rectY, (int)(WIDTH*0.8),(int)(HEIGHT*0.35),30,30);
-        drawText(dialog.getText(),rectX+20,rectY+40);
+        drawText(dialog.getText(),rectX+20,rectY+40, 20);
         //buffStrat.show();
     }
 
-    private void drawText(String text, int x, int y) {
-        font = new Font("Consolas", Font.PLAIN, 36);
+
+    private void drawText(String text, int x, int y, int size) {
+        Font font = new Font("Consolas", Font.PLAIN, size);
+
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("C:/Windows/Fonts/mytype.ttf"));
-            font = font.deriveFont(font.getSize() * 50f);
+//            font = Font.createFont(Font.TRUETYPE_FONT, new File("C:/Windows/Fonts/mytype.ttf"));
+//            font = font.deriveFont(font.getSize() * 50f);
         } catch (Exception e) {
 
         }
@@ -201,7 +203,7 @@ public class Window extends JFrame implements Runnable {
         graphics.setColor(Color.BLACK);
         graphics.drawImage(image, 0, 0, 800, 500, null);
 
-        drawText("PRINCESS KNIGHTS",WIDTH/5, 50);
+        drawText("PRINCESS KNIGHTS",(int)(WIDTH/3.5), 50, 36);
         //buffStrat.show();
     }
 

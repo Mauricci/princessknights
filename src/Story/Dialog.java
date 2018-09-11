@@ -1,5 +1,6 @@
 package Story;
 
+import Characters.Attributes.AttributeEnum;
 import UI.Drawable;
 
 public class Dialog implements Drawable {
@@ -7,8 +8,7 @@ public class Dialog implements Drawable {
     private int flag;
     private String id;
     private String choiceOneID, choiceTwoID;
-    private String defaultAtribute;
-
+    private AttributeEnum defaultAtribute;
     private String selectedChoice;
     private String otherChoice;
 
@@ -18,7 +18,9 @@ public class Dialog implements Drawable {
         this.id = id;
         this.choiceOneID = choiceOneID;
         this.choiceTwoID = choiceTwoID;
-        this.defaultAtribute = attribute;
+        if (attribute != null) {
+            this.defaultAtribute = convertToEnum(attribute);
+        }
         selectedChoice = this.id;
     }
 
@@ -45,6 +47,20 @@ public class Dialog implements Drawable {
         return dialogData;
     }
 
+    private AttributeEnum convertToEnum (String enumString){
+        switch (enumString) {
+            case "STRENGTH":
+                return AttributeEnum.STRENGTH;
+            case "INTELLIGENCE":
+                return AttributeEnum.INTELLIGENCE;
+            case "CHARISMA":
+                return AttributeEnum.CHARISMA;
+            case "SPEED":
+                return AttributeEnum.SPEED;
+        }
+        return AttributeEnum.STRENGTH;
+    }
+
     public String getText() {
         return text;
     }
@@ -55,5 +71,9 @@ public class Dialog implements Drawable {
 
     public int getFlag() {
         return flag;
+    }
+
+    public AttributeEnum getDefaultAtribute() {
+        return defaultAtribute;
     }
 }
