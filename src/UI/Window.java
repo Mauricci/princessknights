@@ -18,6 +18,7 @@ public class Window extends JFrame implements Runnable {
     private Graphics graphics;
     private BufferStrategy buffStrat;
     private final String title = "Princess Knights";
+    private JButton optionOne, optionTwo;
 
     Image image;
 
@@ -130,12 +131,15 @@ public class Window extends JFrame implements Runnable {
     }
 
     private void drawDialog(Dialog dialog) {
+        optionOne = new JButton();
+        optionTwo = new JButton();
         graphics.setColor(Color.gray);
         int rectX = WIDTH/2-(int)(WIDTH*0.4);
         int rectY = HEIGHT/2+40;
         graphics.fillRoundRect(rectX,rectY, (int)(WIDTH*0.8),(int)(HEIGHT*0.35),30,30);
         drawText(dialog.getText(),rectX+20,rectY+40);
         //buffStrat.show();
+
     }
 
     private void drawText(String text, int x, int y) {
