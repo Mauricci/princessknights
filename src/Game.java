@@ -27,15 +27,14 @@ public class Game {
     private List<Scenario> scenarioList;
     private NewWindow window;
 
-    public Game(String args, NewWindow window) {
+    public Game(Repository repository, NewWindow window, List<Scenario> scenarios) {
 
-        connstr = args;
-        repository = new Repository(connstr);
+        this.repository = repository;
         princess = new Princess(repository, 5,5,5,5,5,5,new Skills(new ArrayList<>()));
         trainingLogic = new TrainingLogic();
         this.window = window;
         scanner = new Scanner(System.in);
-        scenarioList = repository.getAllScenarios();
+        this.scenarioList = scenarios;
 //        scenes = new HashMap<>();
 //        dialogs = new HashMap<>();
 //        dialogs.put("2",new Dialog("Här är första dialogen", StoryConstants.DO_CHOICE, "2","3","4",""));
