@@ -51,6 +51,7 @@ public class Panel extends JPanel {
                 setText(((Dialog) drawable).getText());
             }
         }
+        repaint();
     }
 
 

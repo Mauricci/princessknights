@@ -26,7 +26,7 @@ public class NewWindow extends JFrame implements ActionListener {
     }
 
     public NewWindow() {
-        super("Ett jävla test för att se om skiten funkar");
+        super("Princess Knights");
 
         setSize(800, 600);
         setResizable(false);
@@ -42,12 +42,12 @@ public class NewWindow extends JFrame implements ActionListener {
 
         this.setContentPane(panel);
 
-        button = new JButton("En ful jävla knapp");
+        button = new JButton("Alt 1");
         button.setActionCommand("click");
-        button2 = new JButton("Fulare knapp finns inte");
-        button2.setActionCommand("knappjaevel");
+        button2 = new JButton("Alt 2");
+        button2.setActionCommand("click2");
 
-        panel.setText("CELINE DION <3");
+        panel.setText("Test");
 
 
 //        JMenuBar bar = new JMenuBar();
@@ -65,9 +65,9 @@ public class NewWindow extends JFrame implements ActionListener {
         String name = e.getActionCommand();
 
         if(name.equals("click")) {
-            System.out.println("Knapp 1");
-        } else if (name.equals("knappjaevel")) {
-            System.out.println("Knapp 2");
+            System.out.println("Knapp 1 funkar");
+        } else if (name.equals("click2")) {
+            System.out.println("Knapp 2 funkar");
         }
     }
 
@@ -79,5 +79,6 @@ public class NewWindow extends JFrame implements ActionListener {
                 panel.setText(((Dialog) drawable).getText());
             }
         }
+        panel.render(drawingObjects);
     }
 }
