@@ -19,7 +19,18 @@ public class Scenario {
     }
     public SceneData doScenario(Princess princess,int choice){
         if(currentSceneData.getFlag() != StoryConstants.SCENARIO_DONE) {
-            currentSceneData = scenes.get(currentSceneData.getId()).doScene(princess, choice);
+            if(currentSceneData.getDialogData().flag == StoryConstants.DONE) {
+                if(currentSceneData.getId() != null){
+                    String id = currentSceneData.getDialogData().getSelectedChoice();
+                    Scene scene = scenes.get(id);
+                    currentSceneData = scene.doScene(princess, choice);
+                }
+            }
+            else {
+                String id = currentSceneData.getId();
+                Scene scene = scenes.get(id);
+                currentSceneData = scene.doScene(princess, choice);
+            }
         }
         return currentSceneData;
     }

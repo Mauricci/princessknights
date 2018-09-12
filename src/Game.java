@@ -46,6 +46,8 @@ public class Game {
         boolean running = true;
         boolean firstRun = true;
         int choice = 0;
+        SceneData currentScene = null;
+        Scenario scenario = scenarioList.get(0);
 
         while(running) {
             if(!firstRun){
@@ -54,14 +56,24 @@ public class Game {
             else {
                 firstRun = false;
             }
-            Scenario scenario = scenarioList.get(0);
-            SceneData currentScene = scenario.doScenario(princess, choice);
-            ArrayList<Drawable> drawable = new ArrayList<>();
-            drawable.add(currentScene.getDialog());
-            window.render(drawable);
-            if(currentScene.getFlag() == StoryConstants.SCENARIO_DONE){
-                 running = false;
+
+            if(currentScene != null && currentScene.getDialogData().getSelectedChoice() == null) {
+                scenario = scenarioList.get(choice);
+                currentScene = scenario.doScenario(princess, choice);
+                ArrayList<Drawable> drawable = new ArrayList<>();
+                drawable.add(currentScene.getDialog());
+                window.render(drawable);
+                System.out.println("vad som helst");
             }
+            else {
+                currentScene = scenario.doScenario(princess, choice);
+                ArrayList<Drawable> drawable = new ArrayList<>();
+                drawable.add(currentScene.getDialog());
+                window.render(drawable);
+            }
+//            if(currentScene.getFlag() == StoryConstants.SCENARIO_DONE){
+//                 running = false;
+//            }
         }
     }
 
