@@ -27,16 +27,17 @@ public class Panel extends JPanel {
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
 
-        graphics.drawString(stringText, 30, 30);
+        graphics.drawString("Princess Knights", 30, 30);
 //        graphics.drawRect(100, 100, 100, 100);
         graphics.drawImage(background, 0, 0, null);
 
         for (Drawable drawable : drawingObjects) {
             if(drawable instanceof Dialog){
                 Dialog dialog = (Dialog)(drawable);
-                graphics.drawString(dialog.getText(), 100, 100);
+//                graphics.drawString(dialog.getText(), 100, 100);
+//                drawText(graphics, dialog.getText(), 100, 100, 24);
                 System.out.println("hej hopp");
-//                drawDialog((Dialog)drawable);
+                drawDialog(dialog, graphics);
             }
         }
     }
@@ -55,16 +56,27 @@ public class Panel extends JPanel {
     }
 
 
-    private void drawDialog(Dialog dialog) {
+    private void drawDialog(Dialog dialog, Graphics graphics) {
         graphics.setColor(Color.gray);
         int rectX = WIDTH/2-(int)(WIDTH*0.4);
         int rectY = HEIGHT/2+40;
         graphics.fillRoundRect(rectX,rectY, (int)(WIDTH*0.8),(int)(HEIGHT*0.35),30,30);
-        drawText(dialog.getText(),rectX+20,rectY+40, 20);
+        drawText(graphics, dialog.getText(),rectX+20,rectY+40, 20);
     }
-    private void drawText(String text, int x, int y, int size) {
+    private void drawText(Graphics graphics, String text, int x, int y, int size) {
+        int length = 66;
+        while (text.length() > length) {
+            String viewLine = text.substring(0, length);
+            text = text.substring(length, text.length());
+            Font font = new Font("Consolas", Font.PLAIN, size);
+            System.out.println("ritar ut " + text);
+            graphics.setFont(font);
+            graphics.setColor(Color.WHITE);
+            graphics.drawString(viewLine, x, y);
+            y = y + 25;
+        }
         Font font = new Font("Consolas", Font.PLAIN, size);
-        System.out.println("ritar ut " +text);
+        System.out.println("ritar ut " + text);
         graphics.setFont(font);
         graphics.setColor(Color.WHITE);
         graphics.drawString(text, x, y);

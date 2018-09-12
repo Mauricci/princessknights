@@ -53,26 +53,41 @@ public class Game {
         Scenario scenario = scenarioList.get(0);
 
         while(running) {
+            boolean input = false;
             if(!firstRun){
-                choice = scanner.nextInt();
-            }
-            else {
-                firstRun = false;
+//                window.isAlternative1();
+//                choice = scanner.nextInt();
+                if(window.isAlternative1()) {
+                    input = true;
+                    choice = 0;
+                    System.out.println("startgame alternative 1");
+                }
+                else if (window.isAlternative2()) {
+                    input = true;
+                    choice = 1;
+                    System.out.println("startgame alternative 2");
+                }
             }
 
-            if(currentScene != null && currentScene.getDialogData().getSelectedChoice() == null) {
-                scenario = scenarioList.get(choice);
-                currentScene = scenario.doScenario(princess, choice);
-                ArrayList<Drawable> drawable = new ArrayList<>();
-                drawable.add(currentScene.getDialog());
-                window.render(drawable);
-                System.out.println("vad som helst");
-            }
-            else {
-                currentScene = scenario.doScenario(princess, choice);
-                ArrayList<Drawable> drawable = new ArrayList<>();
-                drawable.add(currentScene.getDialog());
-                window.render(drawable);
+            if(input || firstRun) {
+                System.out.println("input firstfun");
+                if (currentScene != null && currentScene.getDialogData().getSelectedChoice() == null) {
+                    scenario = scenarioList.get(choice);
+                    currentScene = scenario.doScenario(princess, choice);
+                    ArrayList<Drawable> drawable = new ArrayList<>();
+                    drawable.add(currentScene.getDialog());
+                    window.render(drawable);
+                } else {
+                    currentScene = scenario.doScenario(princess, choice);
+                    ArrayList<Drawable> drawable = new ArrayList<>();
+                    drawable.add(currentScene.getDialog());
+                    window.render(drawable);
+                }
+                window.resetAlternatives();
+
+                if (firstRun) {
+                    firstRun = false;
+                }
             }
 //            if(currentScene.getFlag() == StoryConstants.SCENARIO_DONE){
 //                 running = false;
