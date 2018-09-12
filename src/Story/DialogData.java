@@ -13,19 +13,26 @@ public class DialogData {
         this.dialog = dialog;
     }
 
-    String getSelectedChoice() {
+    public String getSelectedChoice() {
         return selectedChoice;
     }
 
-    String getOtherChoice() {
+    public String getOtherChoice() {
       return otherChoice;
     }
 
-    int getFlag() {
+    public int getFlag() {
         return flag;
     }
   
     public Dialog getDialog(){
         return dialog;
+    }
+
+    public void setSelectedChoice(String id) {
+      selectedChoice = id;
+    }
+    public void setDialog (Dialog dialog) {
+      this.dialog = dialog;
     }
 }

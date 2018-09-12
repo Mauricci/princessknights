@@ -83,10 +83,10 @@ public class Window extends JFrame implements Runnable {
         graphics = buffStrat.getDrawGraphics();
         jPanel = new JPanel();
 
-        add(optionOne);
-
-        optionOne.setBounds(WIDTH  / 2, 150, buttonWidth, buttonHeigth);
-        getContentPane().add(optionOne);
+//        add(optionOne);
+//
+//        optionOne.setBounds(WIDTH  / 2, 150, buttonWidth, buttonHeigth);
+//        getContentPane().add(optionOne);
 
 //        optionOne = new JButton("En fin knapp att trycka på");
 //        optionOne.setBackground(Color.LIGHT_GRAY);
