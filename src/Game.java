@@ -6,7 +6,11 @@ import Story.SceneData;
 import Story.StoryConstants;
 import TrainingLogic.TrainingLogic;
 import UI.Drawable;
+import UI.NewWindow;
+import UI.Panel;
 import UI.Window;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,9 +25,9 @@ public class Game {
     //    Map<String,Scene> scenes;
 //    Map<String, Dialog> dialogs;
     private List<Scenario> scenarioList;
-    private Window window;
+    private NewWindow window;
 
-    public Game(String args, Window window) {
+    public Game(String args, NewWindow window) {
 
         connstr = args;
         repository = new Repository(connstr);
