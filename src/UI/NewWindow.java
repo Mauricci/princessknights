@@ -17,8 +17,10 @@ public class NewWindow extends JFrame implements ActionListener {
     private Canvas canvas;
     private Image image;
     private final int WIDTH = 800;
-    private final int HEIGTH = 600;
-    private final Dimension windowSize = new Dimension(WIDTH, HEIGTH);
+    private final int HEIGHT = 600;
+    private final Dimension windowSize = new Dimension(WIDTH, HEIGHT);
+    private boolean alternative1;
+    private boolean alternative2;
 
 
     public static void main(String[] args) {
@@ -65,8 +67,10 @@ public class NewWindow extends JFrame implements ActionListener {
         String name = e.getActionCommand();
 
         if(name.equals("click")) {
+            alternative1 = true;
             System.out.println("Knapp 1 funkar");
         } else if (name.equals("click2")) {
+            alternative2 = true;
             System.out.println("Knapp 2 funkar");
         }
     }
@@ -80,5 +84,17 @@ public class NewWindow extends JFrame implements ActionListener {
             }
         }
         panel.render(drawingObjects);
+    }
+    public void resetAlternatives() {
+        alternative1 = false;
+        alternative2 = false;
+    }
+
+    public boolean isAlternative1() {
+        return alternative1;
+    }
+
+    public boolean isAlternative2() {
+        return alternative2;
     }
 }
