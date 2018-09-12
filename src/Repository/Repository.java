@@ -182,6 +182,7 @@ public class Repository {
             while(res.next()) {
                 String sceneID = res.getString(1);
                 Scene scene = getScene(sceneID);
+                System.out.println(sceneID + "scene id i getScenesForScenario");
                 sceneMap.put(sceneID, scene);
             }
         }
@@ -211,12 +212,16 @@ public class Repository {
 //                String dialogID = res.getString(1);
                 Dialog dialog = getDialog(firstDialogID);
                 dialogMap.put(firstDialogID, dialog);
+                System.out.println(firstDialogID + "firstDialogID");
                 if (checkSceneForEnemy(sceneID)) {
                     enemy = getEnemyForScene(sceneID);
                 }
             }
             while (res.next()) {
                 String dialogID = res.getString(2);
+                System.out.println(dialogID + " dialogID");
+                Dialog dialog = getDialog(dialogID);
+                System.out.println(dialog + " dialog");
                 dialogMap.put(dialogID, getDialog(dialogID));
             }
 

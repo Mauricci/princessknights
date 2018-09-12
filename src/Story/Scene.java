@@ -14,7 +14,7 @@ public class Scene {
     private DialogData currentDialogData;
     private Map<String,Dialog> dialogs;
     private Enemy enemy;
-    private String selectedChoice;
+    private String selectedSceneChoice;
     private int flag;
     private String firstDialogID;
 
@@ -23,7 +23,7 @@ public class Scene {
         this.enemy = enemy;
         this.dialogs = dialogs;
         this.firstDialogID = firstDialogID;
-        this.selectedChoice = this.id;
+        this.selectedSceneChoice = this.id;
         currentDialogData = new DialogData(firstDialogID, "", StoryConstants.AUTO_NEXT_DIALOG, dialogs.get(firstDialogID));
     }
 
@@ -40,6 +40,9 @@ public class Scene {
                 combatDone = true;
                 flag = StoryConstants.COMBAT_DONE;
             }
+            else if (currentDialogData.getFlag() == StoryConstants.DO_CHOICE){
+                currentDialogData.setDialog(dialogs.get(currentDialogData.getSelectedChoice()));
+            }
         }
 
         if(currentDialogData.getFlag() == StoryConstants.DONE) {
@@ -47,24 +50,21 @@ public class Scene {
                 flag = StoryConstants.SCENARIO_DONE;
             }
             else {
-                selectedChoice = currentDialogData.selectedChoice;
+                selectedSceneChoice = currentDialogData.selectedChoice;
+                currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
+                System.out.println(selectedSceneChoice + "  Selectedchoice story done");
             }
-//
-            // IF DEPENDING ON CHOICES
-//            if (choice == 1) {
-//
-//
-//            } else if (choice == 2) {
-//                selectedChoice = currentDialogData.otherChoice;
-//            }
         }else if(combatDone){
             if(result.getResult() == 1){
-                selectedChoice = currentDialogData.selectedChoice;
+                currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
+                System.out.println(selectedSceneChoice + "  Selectedchoice combat win");
             }else{
-                selectedChoice = currentDialogData.otherChoice;
+                currentDialogData.setSelectedChoice(currentDialogData.getOtherChoice());
+                currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
+                System.out.println(selectedSceneChoice + "  Selectedchoice combat lose");
             }
         }
-        return new SceneData(selectedChoice, flag, currentDialogData);
+        return new SceneData(selectedSceneChoice, flag, currentDialogData);
     }
 
     public String getFirstDialogID(){

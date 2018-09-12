@@ -6,7 +6,11 @@ import Story.SceneData;
 import Story.StoryConstants;
 import TrainingLogic.TrainingLogic;
 import UI.Drawable;
+import UI.NewWindow;
+import UI.Panel;
 import UI.Window;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,9 +25,9 @@ public class Game {
     //    Map<String,Scene> scenes;
 //    Map<String, Dialog> dialogs;
     private List<Scenario> scenarioList;
-    private Window window;
+    private NewWindow window;
 
-    public Game(String args, Window window) {
+    public Game(String args, NewWindow window) {
 
         connstr = args;
         repository = new Repository(connstr);
@@ -46,6 +50,8 @@ public class Game {
         boolean running = true;
         boolean firstRun = true;
         int choice = 0;
+        SceneData currentScene = null;
+        Scenario scenario = scenarioList.get(0);
 
         while(running) {
             if(!firstRun){
@@ -54,14 +60,24 @@ public class Game {
             else {
                 firstRun = false;
             }
-            Scenario scenario = scenarioList.get(0);
-            SceneData currentScene = scenario.doScenario(princess, choice);
-            ArrayList<Drawable> drawable = new ArrayList<>();
-            drawable.add(currentScene.getDialog());
-            window.render(drawable);
-            if(currentScene.getFlag() == StoryConstants.SCENARIO_DONE){
-                 running = false;
+
+            if(currentScene != null && currentScene.getDialogData().getSelectedChoice() == null) {
+                scenario = scenarioList.get(choice);
+                currentScene = scenario.doScenario(princess, choice);
+                ArrayList<Drawable> drawable = new ArrayList<>();
+                drawable.add(currentScene.getDialog());
+                window.render(drawable);
+                System.out.println("vad som helst");
             }
+            else {
+                currentScene = scenario.doScenario(princess, choice);
+                ArrayList<Drawable> drawable = new ArrayList<>();
+                drawable.add(currentScene.getDialog());
+                window.render(drawable);
+            }
+//            if(currentScene.getFlag() == StoryConstants.SCENARIO_DONE){
+//                 running = false;
+//            }
         }
     }
 
