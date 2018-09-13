@@ -42,10 +42,11 @@ public class NewWindow extends JFrame implements ActionListener {
 
         panel = new Panel();
         panel.setBackground(Color.BLACK);
-        panel.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+        int gap = 85;
+        panel.setBorder(BorderFactory.createEmptyBorder(gap,gap,gap,gap));//createBevelBorder(BevelBorder.RAISED)
         panel.setVisible(true);
-        //setLayout(new GridLayout(2, 1)); //ändra första siffran för att ändra antal grids (liggandes/horisontellt)
-        //setLayout(new BorderLayout()); //lägger knapparna i utkanten av fönstret
+        //panel.setLayout(new GridLayout(2, 1)); //ändra första siffran för att ändra antal grids (liggandes/horisontellt)
+        panel.setLayout(new BorderLayout()); //lägger knapparna i utkanten av fönstret
 
         this.setContentPane(panel);
 
@@ -75,7 +76,8 @@ public class NewWindow extends JFrame implements ActionListener {
 
         panel.setText("Test");
 
-
+        JPanel jpanel = new JPanel();
+        jpanel.setOpaque(false);
 //        JMenuBar bar = new JMenuBar();
 //        setJMenuBar(bar);
 
@@ -83,9 +85,16 @@ public class NewWindow extends JFrame implements ActionListener {
         button2.addActionListener(this);
         button3.addActionListener(this);
 
-        add(button);                    //(button, BorderLayout.WEST) för att placera knappen längst vänster ytterkant
+        /*add(button);                    //(button, BorderLayout.WEST) för att placera knappen längst vänster ytterkant
         add(button2);
-        add(button3);
+        add(button3);*/
+        jpanel.add(button);
+        jpanel.add(button2);
+        jpanel.add(button3);
+        //add(jpanel);
+        //jpanel.setLocation(200,450);
+        panel.add(jpanel,BorderLayout.SOUTH);
+
     }
 
     @Override
