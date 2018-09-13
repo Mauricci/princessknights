@@ -160,7 +160,7 @@ public class Panel extends JPanel {
     }
 
     public void incrementChoice() {
-        if(selectedChoice < scenarioSize){
+        if(selectedChoice < scenarioSize-1){
             selectedChoice++;
             System.out.println("selected choice" + selectedChoice);
             repaint();
