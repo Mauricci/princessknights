@@ -72,7 +72,6 @@ public class NewWindow extends JFrame implements ActionListener {
             System.out.println("File found");
         } else
             System.out.println("File not found");
-
         panel.setText("Test");
 
 
