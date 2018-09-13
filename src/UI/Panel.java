@@ -89,14 +89,14 @@ public class Panel extends JPanel {
         int rectX = (int) (WIDTH / 2 - WIDTH * 0.6);
         int rectY = HEIGHT / 2 + 40;
         graphics.fillRoundRect(rectX, rectY, (int) (WIDTH * 0.8), (int) (HEIGHT * 0.35), 30, 30);
-        drawText(graphics, dialog.getText(), rectX + 100, rectY + 200, 20);
+        drawText(graphics, dialog.getText(), rectX + 115, rectY + 200, 20);
     }
 
     private void drawText(Graphics graphics, String text, int x, int y, int size) {
-        int length = 53;
+        int length = 61;
         int lineLength = length;
         graphics.setColor(Color.BLACK);
-        Font font = new Font("Consolas", Font.PLAIN, size);
+        Font font = new Font("Book Antiqua", Font.PLAIN, size);
         graphics.setFont(font);
         while (text.length() > length) {
             for (int i = length; i > 0; i--) {
