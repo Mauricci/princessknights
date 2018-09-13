@@ -59,7 +59,7 @@ public class NewWindow extends JFrame implements ActionListener {
         //insert button image here...image should be max 32x32
         try {
             System.out.println("fin knapp");
-            Image image = ImageIO.read(new File("res/images/buttongreentest.png"));
+            Image image = ImageIO.read(new File("res/images/arrow.png"));
             button3.setIcon(new ImageIcon(image));
             System.out.println(image);
         }catch (Exception ex) {
