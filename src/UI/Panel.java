@@ -23,6 +23,7 @@ public class Panel extends JPanel {
     private boolean firstDraw = true;
     private Image dialogBackground = null;
     private Image princessImage;
+    private Font font;
 
 
     public Panel() {
@@ -34,6 +35,12 @@ public class Panel extends JPanel {
         }catch(Exception e){
 
         }
+        /*try {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("C:/Windows/Fonts/berkshirewash-regular.ttf"));
+
+        } catch (Exception e) {
+
+        }*/
     }
 
     public void setDrawable(ArrayList<Drawable> drawable) {
@@ -106,6 +113,7 @@ public class Panel extends JPanel {
         int lineLength = length;
         graphics.setColor(Color.BLACK);
         Font font = new Font("Consolas", Font.PLAIN, size);
+        //font = font.deriveFont(font.getSize() * size);
         graphics.setFont(font);
         while (text.length() > length) {
             for(int i = length; i > 0; i--){
