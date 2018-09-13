@@ -16,6 +16,8 @@ public class Panel extends JPanel {
     private boolean drawingScenarios = false;
     private int selectedChoice;
     private boolean currentScenarioDone = false;
+    private int scenarioSize;
+    private boolean firstDraw = true;
 
 
     public Panel() {
@@ -49,7 +51,10 @@ public class Panel extends JPanel {
                 Scenario scenario = (Scenario)(drawable);
                 if(scenario.getScenarioDone()){
                     currentScenarioDone = true;
-                    selectedChoice++;
+                    if(firstDraw){
+                        selectedChoice++;
+                        firstDraw= false;
+                    }
                 }
                 drawScenario(scenario, graphics);
             }
@@ -66,7 +71,10 @@ public class Panel extends JPanel {
             Drawable drawable = drawingObjects.get(0);
             if(drawable instanceof Story.Dialog){
                 setText(((Dialog) drawable).getText());
+            }else if(drawable instanceof Story.Scenario){
+                scenarioSize = drawingObjects.size();
             }
+
         }
         repaint();
     }
@@ -118,13 +126,23 @@ public class Panel extends JPanel {
     }
     
     public int getSelectedChoice(){
+        firstDraw = true;
         return selectedChoice;
     }
 
     public void decrementChoice() {
+        if(selectedChoice>0){
+            selectedChoice--;
+            repaint();
+        }
     }
 
     public void incrementChoice() {
+        if(selectedChoice < scenarioSize){
+            selectedChoice++;
+            System.out.println("selected choice" + selectedChoice);
+            repaint();
+        }
     }
 }
 
