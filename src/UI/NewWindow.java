@@ -33,7 +33,7 @@ public class NewWindow extends JFrame implements ActionListener {
     }
 
     public NewWindow() {
-        super("Princess Knights");
+        super("Asadotterns Omen");
 
         setSize(800, 600);
         setResizable(false);

@@ -43,7 +43,7 @@ public class Panel extends JPanel {
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         graphics.drawImage(dialogBackground, 0, 0, 785, 600, null);
-        drawText(graphics, "Princess Knights", 250, 150, 36);
+        drawText(graphics, "Asadotterns Omen", 250, 150, 36);
 
         for (Drawable drawable : drawingObjects) {
             if (drawable instanceof Dialog) {
