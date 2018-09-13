@@ -22,7 +22,6 @@ public class Repository {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Repository repositoryError");
-
             throw new RuntimeException(e.getMessage());
         }
     }
@@ -75,9 +74,7 @@ public class Repository {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("newSkill repositoryError");
-
         }
-
         return skill;
     }
 
@@ -112,7 +109,6 @@ public class Repository {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("getEnemyForScene repositoryError");
-
             throw new RuntimeException(e.getMessage());
         }
         return enemy;
@@ -125,7 +121,6 @@ public class Repository {
         String stmt = "SELECT * FROM dbo.Scenario";
 
         try (PreparedStatement sth = dbconn.prepareStatement(stmt)) {
-
             ResultSet res = sth.executeQuery();
 
             while (res.next()) {
@@ -136,7 +131,6 @@ public class Repository {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("getAllScenatios repositoryError");
-
             throw new RuntimeException(e.getMessage());
         }
         return allScenarios;
@@ -149,26 +143,18 @@ public class Repository {
         String scenarioText = "";
 
         try (PreparedStatement sth = dbconn.prepareStatement(stmt)) {
-
             sth.setString(1, scenarioID);
             ResultSet res = sth.executeQuery();
-//            if(res.next()){
-//                firstSceneID = res.getString(1);
-//                sceneMap.put(firstSceneID,getScene(firstSceneID));
-//            }
 
             if (res.next()) {
                 firstSceneID = res.getString(2);
                 scenarioText = res.getString(3);
-//                String sceneID = res.getString(1);
-//                sceneMap.put(sceneID,getScene(sceneID));
                 sceneMap = getScenesForScenario(scenarioID);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("getScenario repositoryError");
-
             throw new RuntimeException(e.getMessage());
         }
         return new Scenario(sceneMap,firstSceneID,scenarioText);
@@ -184,14 +170,12 @@ public class Repository {
             while(res.next()) {
                 String sceneID = res.getString(1);
                 Scene scene = getScene(sceneID);
-                System.out.println(sceneID + "scene id i getScenesForScenario");
                 sceneMap.put(sceneID, scene);
             }
         }
         catch (Exception e) {
             System.out.println(e);
             System.out.println("getScenesForScenario repositoryError");
-
         }
         return sceneMap;
     }
@@ -211,22 +195,17 @@ public class Repository {
             ResultSet res = sth.executeQuery();
             if(res.next()) {
                 firstDialogID = res.getString(2);
-//                String dialogID = res.getString(1);
                 Dialog dialog = getDialog(firstDialogID);
                 dialogMap.put(firstDialogID, dialog);
-                System.out.println(firstDialogID + "firstDialogID");
                 if (checkSceneForEnemy(sceneID)) {
                     enemy = getEnemyForScene(sceneID);
                 }
             }
             while (res.next()) {
                 String dialogID = res.getString(2);
-                System.out.println(dialogID + " dialogID");
                 Dialog dialog = getDialog(dialogID);
-                System.out.println(dialog + " dialog");
                 dialogMap.put(dialogID, getDialog(dialogID));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("getScene repositoryError");

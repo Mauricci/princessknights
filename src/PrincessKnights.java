@@ -8,7 +8,6 @@ import java.util.List;
 public class PrincessKnights {
 
     public static void main(String[] args) {
-//        Window window = new Window(null);
         Repository repository = new Repository(args[0]);
         List<Scenario> scenarios = repository.getAllScenarios();
         NewWindow window = new NewWindow();

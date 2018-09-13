@@ -43,7 +43,6 @@ public class Dialog implements Drawable {
         }
 
         DialogData dialogData = new DialogData(selectedChoice, otherChoice, flag, this);
-        System.out.println(dialogData);
         return dialogData;
     }
 

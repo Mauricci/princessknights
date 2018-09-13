@@ -52,16 +52,13 @@ public class Scene {
             else {
                 selectedSceneChoice = currentDialogData.selectedChoice;
                 currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
-                System.out.println(selectedSceneChoice + "  Selectedchoice story done");
             }
         }else if(combatDone){
             if(result.getResult() == 1){
                 currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
-                System.out.println(selectedSceneChoice + "  Selectedchoice combat win");
             }else{
                 currentDialogData.setSelectedChoice(currentDialogData.getOtherChoice());
                 currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
-                System.out.println(selectedSceneChoice + "  Selectedchoice combat lose");
             }
         }
         return new SceneData(selectedSceneChoice, flag, currentDialogData);

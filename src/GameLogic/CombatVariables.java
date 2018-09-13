@@ -10,13 +10,10 @@ public class CombatVariables {
 
     public CombatVariables(Character character, AttributeEnum attributeEnum, Skill skill) {
         this.power = character.getAttribute(attributeEnum) + skill.getCombatMod();
-//        this.abilityModifier = character.
-
     }
 
     public CombatVariables(Character character, AttributeEnum attributeEnum) {
         this.power = character.getAttribute(attributeEnum);
-
     }
 
     public double getPower(){

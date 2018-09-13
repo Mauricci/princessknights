@@ -43,10 +43,9 @@ public class NewWindow extends JFrame implements ActionListener {
         panel = new Panel();
         panel.setBackground(Color.BLACK);
         int gap = 85;
-        panel.setBorder(BorderFactory.createEmptyBorder(gap,gap,gap,gap));//createBevelBorder(BevelBorder.RAISED)
+        panel.setBorder(BorderFactory.createEmptyBorder(gap,gap,gap,gap));
         panel.setVisible(true);
-        //panel.setLayout(new GridLayout(2, 1)); //ändra första siffran för att ändra antal grids (liggandes/horisontellt)
-        panel.setLayout(new BorderLayout()); //lägger knapparna i utkanten av fönstret
+        panel.setLayout(new BorderLayout());
 
         this.setContentPane(panel);
 
@@ -67,32 +66,19 @@ public class NewWindow extends JFrame implements ActionListener {
             ex.printStackTrace();
         }
 
-        //Test to check file existence
-        File imageCheck = new File("res/images/buttongreen.png");
-        if (imageCheck.exists()) {
-            System.out.println("File found");
-        } else
-            System.out.println("File not found");
-
         panel.setText("Test");
 
         JPanel jpanel = new JPanel();
         jpanel.setOpaque(false);
-//        JMenuBar bar = new JMenuBar();
-//        setJMenuBar(bar);
 
         button.addActionListener(this);
         button2.addActionListener(this);
         button3.addActionListener(this);
 
-        /*add(button);                    //(button, BorderLayout.WEST) för att placera knappen längst vänster ytterkant
-        add(button2);
-        add(button3);*/
         jpanel.add(button);
         jpanel.add(button2);
         jpanel.add(button3);
-        //add(jpanel);
-        //jpanel.setLocation(200,450);
+
         panel.add(jpanel,BorderLayout.SOUTH);
 
     }
@@ -106,13 +92,11 @@ public class NewWindow extends JFrame implements ActionListener {
             if(drawingScenarios){
                 panel.decrementChoice();
             }
-            System.out.println("Knapp 1 funkar");
         } else if (name.equals("click2")) {
             if(drawingScenarios){
                 panel.incrementChoice();
             }
             alternative2 = true;
-            System.out.println("Knapp 2 funkar");
         }else if(name.equals("click3")){
             alternative3 = true;
         }
@@ -138,12 +122,10 @@ public class NewWindow extends JFrame implements ActionListener {
     }
 
     public boolean isAlternative1() {
-        //System.out.println(alternative1);
         return alternative1;
     }
 
     public boolean isAlternative2() {
-        //System.out.println(alternative2);
         return alternative2;
     }
     public boolean isAlternative3(){
