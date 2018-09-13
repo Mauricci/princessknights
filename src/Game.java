@@ -53,6 +53,7 @@ public class Game {
                     if (window.isAlternative3()) {
                         input = true;
                         choice = window.getSelectedChoice();
+                        doingScenario = true;
                     }
                 }else{
                     if(window.isAlternative1()) {
