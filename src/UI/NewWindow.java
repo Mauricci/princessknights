@@ -3,12 +3,14 @@ package UI;
 import Story.Dialog;
 import Story.Scenario;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
+import java.io.File;
 import java.util.ArrayList;
 
 public class NewWindow extends JFrame implements ActionListener {
@@ -51,8 +53,25 @@ public class NewWindow extends JFrame implements ActionListener {
         button.setActionCommand("click");
         button2 = new JButton("Alt 2");
         button2.setActionCommand("click2");
-        button3 = new JButton("Fortsätt");
+        button3 = new JButton();
         button3.setActionCommand("click3");
+
+        //insert button image here...image should be max 32x32
+        try {
+            System.out.println("fin knapp");
+            Image image = ImageIO.read(new File("res/images/buttongreentest.png"));
+            button3.setIcon(new ImageIcon(image));
+            System.out.println(image);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        //Test to check file existence
+        File imageCheck = new File("res/images/buttongreen.png");
+        if (imageCheck.exists()) {
+            System.out.println("File found");
+        } else
+            System.out.println("File not found");
 
         panel.setText("Test");
 
