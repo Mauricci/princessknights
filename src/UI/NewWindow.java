@@ -83,6 +83,10 @@ public class NewWindow extends JFrame implements ActionListener {
         button2.addActionListener(this);
         button3.addActionListener(this);
 
+        button.setBounds(20, 20, 600, 300);
+        button2.setBounds(20, 20, 600, 300);
+        button3 .setBounds(20, 20, 600, 300);
+
         add(button);                    //(button, BorderLayout.WEST) för att placera knappen längst vänster ytterkant
         add(button2);
         add(button3);
