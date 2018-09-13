@@ -65,20 +65,29 @@ public class Game {
             if(!firstRun){
 //                window.isAlternative1();
 //                choice = scanner.nextInt();
-                if(window.isAlternative1()) {
-                    input = true;
-                    choice = 1;
-                    System.out.println("startgame alternative 1");
-                }
-                else if (window.isAlternative2()) {
-                    input = true;
-                    choice = 2;
-                    System.out.println("startgame alternative 2");
-                }
-                else if (window.isAlternative3()) {
-                    input = true;
-                    choice = 0;
-                    System.out.println("startgame alternative 3");
+                if(!doingScenario){
+
+                    if (window.isAlternative3()) {
+                        input = true;
+                        choice = window.getSelectedChoide();
+                        System.out.println("Selected Scenario");
+                    }
+                }else{
+                    if(window.isAlternative1()) {
+                        input = true;
+                        choice = 1;
+                        System.out.println("startgame alternative 1");
+                    }
+                    else if (window.isAlternative2()) {
+                        input = true;
+                        choice = 2;
+                        System.out.println("startgame alternative 2");
+                    }
+                    else if (window.isAlternative3()) {
+                        input = true;
+                        choice = 0;
+                        System.out.println("startgame alternative 3");
+                    }
                 }
             }
 
