@@ -132,14 +132,14 @@ public class Panel extends JPanel {
     }
 
     public void decrementChoice() {
-        if (selectedChoice > 0) {
+        if (selectedChoice >= 1) {
             selectedChoice--;
             repaint();
         }
     }
 
     public void incrementChoice() {
-        if (selectedChoice < scenarioSize - 1) {
+        if (selectedChoice <= scenarioSize - 1) {
             selectedChoice++;
             repaint();
         }

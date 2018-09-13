@@ -7,10 +7,7 @@ import Story.StoryConstants;
 import TrainingLogic.TrainingLogic;
 import UI.Drawable;
 import UI.NewWindow;
-import UI.Panel;
-import UI.Window;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -53,10 +50,9 @@ public class Game {
             boolean input = false;
             if(!firstRun){
                 if(!doingScenario){
-
                     if (window.isAlternative3()) {
                         input = true;
-                        choice = window.getSelectedChoide();
+                        choice = window.getSelectedChoice();
                     }
                 }else{
                     if(window.isAlternative1()) {
