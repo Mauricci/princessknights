@@ -146,6 +146,7 @@ public class Repository {
         String stmt = "SELECT * FROM dbo.Scenario WHERE ID=?";
         Map<String, Scene> sceneMap = new HashMap<>();
         String firstSceneID = "";
+        String scenarioText = "";
 
         try (PreparedStatement sth = dbconn.prepareStatement(stmt)) {
 
@@ -158,6 +159,7 @@ public class Repository {
 
             if (res.next()) {
                 firstSceneID = res.getString(2);
+                scenarioText = res.getString(3);
 //                String sceneID = res.getString(1);
 //                sceneMap.put(sceneID,getScene(sceneID));
                 sceneMap = getScenesForScenario(scenarioID);
@@ -169,7 +171,7 @@ public class Repository {
 
             throw new RuntimeException(e.getMessage());
         }
-        return new Scenario(sceneMap,firstSceneID);
+        return new Scenario(sceneMap,firstSceneID,scenarioText);
     }
 
     private Map<String,Scene> getScenesForScenario(String scenarioID) {
