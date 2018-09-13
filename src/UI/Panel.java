@@ -1,6 +1,7 @@
 package UI;
 
 import Story.Dialog;
+import Story.Scenario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,10 @@ public class Panel extends JPanel {
     String stringText;
     ArrayList<Drawable> drawingObjects = new ArrayList<>();
     private Graphics graphics;
+    private int scenarioLap = 0;
+    private boolean drawingScenarios = false;
+    private int selectedChoice;
+    private boolean currentScenarioDone = false;
 
 
     public Panel() {
@@ -38,8 +43,19 @@ public class Panel extends JPanel {
 //                drawText(graphics, dialog.getText(), 100, 100, 24);
                 System.out.println("hej hopp");
                 drawDialog(dialog, graphics);
+            }else if(drawable instanceof Scenario){
+                currentScenarioDone = false;
+                drawingScenarios = true;
+                Scenario scenario = (Scenario)(drawable);
+                if(scenario.getScenarioDone()){
+                    currentScenarioDone = true;
+                    selectedChoice++;
+                }
+                drawScenario(scenario, graphics);
             }
         }
+        scenarioLap=0;
+        drawingScenarios = false;
     }
 
     public void setText(String string) {
@@ -65,21 +81,50 @@ public class Panel extends JPanel {
     }
     private void drawText(Graphics graphics, String text, int x, int y, int size) {
         int length = 66;
+        int lineLength = length;
+        graphics.setColor(Color.WHITE);
+        Font font = new Font("Consolas", Font.PLAIN, size);
+        graphics.setFont(font);
         while (text.length() > length) {
-            String viewLine = text.substring(0, length);
-            text = text.substring(length, text.length());
-            Font font = new Font("Consolas", Font.PLAIN, size);
+            for(int i = length; i > 0; i--){
+                if(text.charAt(i) == ' '){
+                    lineLength = i;
+                    break;
+                }
+            }
+            String viewLine = text.substring(0, lineLength);
+            text = text.substring(lineLength, text.length());
             System.out.println("ritar ut " + text);
-            graphics.setFont(font);
-            graphics.setColor(Color.WHITE);
+
             graphics.drawString(viewLine, x, y);
             y = y + 25;
         }
-        Font font = new Font("Consolas", Font.PLAIN, size);
+
+        if(drawingScenarios && currentScenarioDone){
+            graphics.setColor(Color.RED);
+        }else if(drawingScenarios && scenarioLap == selectedChoice){
+            graphics.setColor(Color.YELLOW);
+        }
         System.out.println("ritar ut " + text);
-        graphics.setFont(font);
-        graphics.setColor(Color.WHITE);
         graphics.drawString(text, x, y);
+    }
+
+    public void drawScenario(Scenario scenario, Graphics graphics) {
+        //setText();
+        int rectX = WIDTH/2-(int)(WIDTH*0.4);
+        int rectY = HEIGHT/2+40;
+        drawText(graphics,scenario.getText(), rectX+20,(rectY+40)+(scenarioLap*25),20);
+        scenarioLap++;
+    }
+    
+    public int getSelectedChoice(){
+        return selectedChoice;
+    }
+
+    public void decrementChoice() {
+    }
+
+    public void incrementChoice() {
     }
 }
 

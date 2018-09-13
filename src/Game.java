@@ -26,6 +26,8 @@ public class Game {
 //    Map<String, Dialog> dialogs;
     private List<Scenario> scenarioList;
     private NewWindow window;
+    private boolean doingScenario = true;
+    private boolean scenariosRendered;
 
     public Game(Repository repository, NewWindow window, List<Scenario> scenarios) {
 
@@ -53,23 +55,41 @@ public class Game {
         Scenario scenario = scenarioList.get(0);
 
         while(running) {
+            try{
+                Thread thread = new Thread();
+                thread.sleep(200);
+            }catch(Exception e){
+
+            }
             boolean input = false;
             if(!firstRun){
 //                window.isAlternative1();
 //                choice = scanner.nextInt();
                 if(window.isAlternative1()) {
                     input = true;
-                    choice = 0;
+                    choice = 1;
                     System.out.println("startgame alternative 1");
                 }
                 else if (window.isAlternative2()) {
                     input = true;
-                    choice = 1;
+                    choice = 2;
                     System.out.println("startgame alternative 2");
+                }
+                else if (window.isAlternative3()) {
+                    input = true;
+                    choice = 0;
+                    System.out.println("startgame alternative 3");
                 }
             }
 
-            if(input || firstRun) {
+            if(!doingScenario && !scenariosRendered){
+                ArrayList<Drawable> drawable = new ArrayList<>();
+                for(Scenario scenarioElement : scenarioList){
+                    drawable.add(scenarioElement);
+                }
+                window.render(drawable);
+                scenariosRendered = true;
+            }else if(input || firstRun) {
                 System.out.println("input firstfun");
                 if (currentScene != null && currentScene.getDialogData().getSelectedChoice() == null) {
                     scenario = scenarioList.get(choice);
@@ -88,10 +108,12 @@ public class Game {
                 if (firstRun) {
                     firstRun = false;
                 }
+                if(currentScene.getFlag() == StoryConstants.SCENARIO_DONE){
+                    doingScenario = false;
+                    scenariosRendered = false;
+                }
             }
-//            if(currentScene.getFlag() == StoryConstants.SCENARIO_DONE){
-//                 running = false;
-//            }
+
         }
     }
 
