@@ -39,7 +39,6 @@ public class Dialog implements Drawable {
                     selectedChoice = choiceTwoID;
                 }
             }
-            // PUT PRE-COMBAT CHOICE TO DIALOG DATA
         }
 
         DialogData dialogData = new DialogData(selectedChoice, otherChoice, flag, this);

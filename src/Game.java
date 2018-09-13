@@ -39,9 +39,9 @@ public class Game {
     public void StartGame() {
         boolean running = true;
         boolean firstRun = true;
-        int choice = 0;
         SceneData currentScene = null;
         Scenario scenario = scenarioList.get(0);
+        int choice = 0;
 
         while(running) {
             try{

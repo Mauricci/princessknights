@@ -11,8 +11,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Panel extends JPanel {
-    Image background =null;
-    String stringText="";
+    Image background = null;
+    String stringText = "";
     ArrayList<Drawable> drawingObjects = new ArrayList<>();
     private Graphics graphics;
     private int scenarioLap = 0;
@@ -28,74 +28,57 @@ public class Panel extends JPanel {
 
     public Panel() {
         setPreferredSize(new Dimension(800, 600));
-        try{
-            //background = ImageIO.read(new File("res/images/backgound.png"));
+        try {
             dialogBackground = ImageIO.read(new File("res/images/dialogBackground.png"));
-            //princessImage = ImageIO.read(new File("res/images/princess.png"));
-        }catch(Exception e){
-
-        }
-        /*try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("C:/Windows/Fonts/berkshirewash-regular.ttf"));
-
         } catch (Exception e) {
-
-        }*/
+            e.printStackTrace();
+        }
     }
 
     public void setDrawable(ArrayList<Drawable> drawable) {
         this.drawingObjects = drawable;
     }
 
-
     @Override
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-
-//        graphics.drawRect(100, 100, 100, 100);
-        graphics.drawImage(dialogBackground, 0, 0,785,600, null);
-        drawText(graphics,"Princess Knights", 250, 150, 36);
-        //graphics.drawImage(dialogBackground, 10, 50,700,500, null);
-        //graphics.drawImage(princessImage, 10, 50,50,100, null);
-
+        graphics.drawImage(dialogBackground, 0, 0, 785, 600, null);
+        drawText(graphics, "Princess Knights", 250, 150, 36);
 
         for (Drawable drawable : drawingObjects) {
-            if(drawable instanceof Dialog){
-                Dialog dialog = (Dialog)(drawable);
-//                graphics.drawString(dialog.getText(), 100, 100);
-//                drawText(graphics, dialog.getText(), 100, 100, 24);
-                System.out.println("hej hopp");
+            if (drawable instanceof Dialog) {
+                Dialog dialog = (Dialog) (drawable);
                 drawDialog(dialog, graphics);
-            }else if(drawable instanceof Scenario){
+            } else if (drawable instanceof Scenario) {
                 currentScenarioDone = false;
                 drawingScenarios = true;
-                Scenario scenario = (Scenario)(drawable);
-                if(scenario.getScenarioDone()){
+                Scenario scenario = (Scenario) (drawable);
+                if (scenario.getScenarioDone()) {
                     currentScenarioDone = true;
-                    if(firstDraw){
+                    if (firstDraw) {
                         selectedChoice++;
-                        firstDraw= false;
+                        firstDraw = false;
                     }
                 }
                 drawScenario(scenario, graphics);
             }
         }
-        scenarioLap=0;
+        scenarioLap = 0;
         drawingScenarios = false;
     }
 
     public void setText(String string) {
         stringText = string;
     }
+
     public void render(ArrayList<Drawable> drawingObjects) {
         if (drawingObjects.size() > 0) {
             Drawable drawable = drawingObjects.get(0);
-            if(drawable instanceof Story.Dialog){
+            if (drawable instanceof Story.Dialog) {
                 setText(((Dialog) drawable).getText());
-            }else if(drawable instanceof Story.Scenario){
+            } else if (drawable instanceof Story.Scenario) {
                 scenarioSize = drawingObjects.size();
             }
-
         }
         repaint();
     }
@@ -103,66 +86,61 @@ public class Panel extends JPanel {
 
     private void drawDialog(Dialog dialog, Graphics graphics) {
         graphics.setColor(Color.gray);
-        int rectX = (int)(WIDTH/2-WIDTH*0.6);
-        int rectY = HEIGHT/2+40;
-        graphics.fillRoundRect(rectX,rectY, (int)(WIDTH*0.8),(int)(HEIGHT*0.35),30,30);
-        drawText(graphics, dialog.getText(),rectX+100,rectY+200, 20);
+        int rectX = (int) (WIDTH / 2 - WIDTH * 0.6);
+        int rectY = HEIGHT / 2 + 40;
+        graphics.fillRoundRect(rectX, rectY, (int) (WIDTH * 0.8), (int) (HEIGHT * 0.35), 30, 30);
+        drawText(graphics, dialog.getText(), rectX + 100, rectY + 200, 20);
     }
+
     private void drawText(Graphics graphics, String text, int x, int y, int size) {
         int length = 53;
         int lineLength = length;
         graphics.setColor(Color.BLACK);
         Font font = new Font("Consolas", Font.PLAIN, size);
-        //font = font.deriveFont(font.getSize() * size);
         graphics.setFont(font);
         while (text.length() > length) {
-            for(int i = length; i > 0; i--){
-                if(text.charAt(i) == ' '){
+            for (int i = length; i > 0; i--) {
+                if (text.charAt(i) == ' ') {
                     lineLength = i;
                     break;
                 }
             }
             String viewLine = text.substring(0, lineLength);
             text = text.substring(lineLength, text.length());
-            System.out.println("ritar ut " + text);
-
             graphics.drawString(viewLine, x, y);
             y = y + 25;
         }
 
-        if(drawingScenarios && currentScenarioDone){
+        if (drawingScenarios && currentScenarioDone) {
             graphics.setColor(Color.RED);
-        }else if(drawingScenarios && scenarioLap == selectedChoice){
+        } else if (drawingScenarios && scenarioLap == selectedChoice) {
             graphics.setColor(Color.GREEN);
         }
-        System.out.println("ritar ut " + text);
         graphics.drawString(text, x, y);
     }
 
     public void drawScenario(Scenario scenario, Graphics graphics) {
-        //setText();
-        int rectX = (int)(WIDTH/2-WIDTH*0.2);
-        int rectY = HEIGHT/2+40;
-        drawText(graphics,scenario.getText(), rectX+325,(rectY+250)+(scenarioLap*25),25);
+        int rectX = (int) (WIDTH / 2 - WIDTH * 0.2);
+        int rectY = HEIGHT / 2 + 40;
+        drawText(graphics, scenario.getText(), rectX + 325, (rectY + 250) + (scenarioLap * 25), 25);
         scenarioLap++;
     }
-    
-    public int getSelectedChoice(){
+
+    public int getSelectedChoice() {
         firstDraw = true;
         return selectedChoice;
     }
 
     public void decrementChoice() {
-        if(selectedChoice>0){
+        if (selectedChoice > 0) {
             selectedChoice--;
             repaint();
         }
     }
 
     public void incrementChoice() {
-        if(selectedChoice < scenarioSize-1){
+        if (selectedChoice < scenarioSize - 1) {
             selectedChoice++;
-            System.out.println("selected choice" + selectedChoice);
             repaint();
         }
     }
