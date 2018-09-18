@@ -1,27 +1,20 @@
 package UI;
 
 import Story.Dialog;
-import Story.Scenario;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.util.ArrayList;
 
 public class NewWindow extends JFrame implements ActionListener {
     private JButton button, button2, button3;
     private Panel panel;
-    private BufferStrategy bufferStrategy;
-    private Canvas canvas;
-    private Image image;
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
-    private final Dimension windowSize = new Dimension(WIDTH, HEIGHT);
     private boolean alternative1;
     private boolean alternative2;
     private boolean alternative3;
@@ -35,7 +28,7 @@ public class NewWindow extends JFrame implements ActionListener {
     public NewWindow() {
         super("Asadotterns omen");
 
-        setSize(800, 600);
+        setSize(WIDTH, HEIGHT);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
