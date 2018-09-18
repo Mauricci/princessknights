@@ -29,20 +29,22 @@ public class Dialog implements Drawable {
             selectedChoice = choiceOneID;
             otherChoice = choiceTwoID;
         } else {
-            if (flag == StoryConstants.AUTO_NEXT_DIALOG) {
-                selectedChoice = choiceOneID;
-            } else {
-                if (choice == 1) {
-                    selectedChoice = choiceOneID;
+            checkAutoOrSetChoices(choice);
+        }
+        return new DialogData(selectedChoice, otherChoice, flag, this);
+    }
 
-                } else if (choice == 2) {
-                    selectedChoice = choiceTwoID;
-                }
+    private void checkAutoOrSetChoices(int choice) {
+        if (flag == StoryConstants.AUTO_NEXT_DIALOG) {
+            selectedChoice = choiceOneID;
+        } else {
+            if (choice == 1) {
+                selectedChoice = choiceOneID;
+
+            } else if (choice == 2) {
+                selectedChoice = choiceTwoID;
             }
         }
-
-        DialogData dialogData = new DialogData(selectedChoice, otherChoice, flag, this);
-        return dialogData;
     }
 
     private AttributeEnum convertToEnum (String enumString){
