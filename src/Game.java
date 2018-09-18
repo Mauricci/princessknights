@@ -14,29 +14,22 @@ import java.util.Scanner;
 
 public class Game {
 
-    private String connstr;
-    private Repository repository;
     private Princess princess;
     private TrainingLogic trainingLogic;
-    private Scanner scanner;
     private List<Scenario> scenarioList;
     private NewWindow window;
     private boolean doingScenario = true;
     private boolean scenariosRendered;
     private int choice = 0;
-    private boolean firstRun = true;
     private SceneData currentScene = null;
     private Scenario scenario;
     private ArrayList<Drawable> drawable;
     private boolean running = true;
 
     public Game(Repository repository, NewWindow window, List<Scenario> scenarios) {
-
-        this.repository = repository;
         princess = new Princess(repository, 5, 5, 5, 5, 5, 5, new Skills(new ArrayList<>()));
         trainingLogic = new TrainingLogic();
         this.window = window;
-        scanner = new Scanner(System.in);
         this.scenarioList = scenarios;
         scenario = scenarioList.get(0);
     }
