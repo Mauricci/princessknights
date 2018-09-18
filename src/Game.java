@@ -23,85 +23,113 @@ public class Game {
     private NewWindow window;
     private boolean doingScenario = true;
     private boolean scenariosRendered;
+    private int choice = 0;
+    private boolean firstRun = true;
+    private SceneData currentScene = null;
+    private Scenario scenario;
+    private ArrayList<Drawable> drawable;
+    private boolean running = true;
 
     public Game(Repository repository, NewWindow window, List<Scenario> scenarios) {
 
         this.repository = repository;
-        princess = new Princess(repository, 5,5,5,5,5,5,new Skills(new ArrayList<>()));
+        princess = new Princess(repository, 5, 5, 5, 5, 5, 5, new Skills(new ArrayList<>()));
         trainingLogic = new TrainingLogic();
         this.window = window;
         scanner = new Scanner(System.in);
         this.scenarioList = scenarios;
+        scenario = scenarioList.get(0);
     }
+
     public void StartGame() {
-        boolean running = true;
-        boolean firstRun = true;
-        SceneData currentScene = null;
-        Scenario scenario = scenarioList.get(0);
-        int choice = 0;
 
-        while(running) {
-            try{
-                Thread thread = new Thread();
-                thread.sleep(200);
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            boolean input = false;
-            if(!firstRun){
-                if(!doingScenario){
-                    if (window.isAlternative3()) {
-                        input = true;
-                        choice = window.getSelectedChoice();
-                        doingScenario = true;
-                    }
-                }else{
-                    if(window.isAlternative1()) {
-                        input = true;
-                        choice = 1;
-                    }
-                    else if (window.isAlternative2()) {
-                        input = true;
-                        choice = 2;
-                    }
-                    else if (window.isAlternative3()) {
-                        input = true;
-                        choice = 0;
-                    }
-                }
-            }
+        while (running) {
+            //do menu
+            doGameLoop();
+            //do training
+        }
+    }
 
-            if(!doingScenario && !scenariosRendered){
-                ArrayList<Drawable> drawable = new ArrayList<>();
-                for(Scenario scenarioElement : scenarioList){
-                    drawable.add(scenarioElement);
-                }
-                window.render(drawable);
-                scenariosRendered = true;
-            }else if(input || firstRun) {
-                if (currentScene != null && currentScene.getDialogData().getSelectedChoice() == null) {
-                    scenario = scenarioList.get(choice);
-                    currentScene = scenario.doScenario(princess, choice);
-                    ArrayList<Drawable> drawable = new ArrayList<>();
-                    drawable.add(currentScene.getDialog());
-                    window.render(drawable);
-                } else {
-                    currentScene = scenario.doScenario(princess, choice);
-                    ArrayList<Drawable> drawable = new ArrayList<>();
-                    drawable.add(currentScene.getDialog());
-                    window.render(drawable);
-                }
-                window.resetAlternatives();
+    private void doGameLoop() {
+        boolean doGameLoop = true;
+        doStory();
+        while (doGameLoop) {
+            checkInput();
 
-                if (firstRun) {
-                    firstRun = false;
-                }
-                if(currentScene.getFlag() == StoryConstants.SCENARIO_DONE){
+            if (!doingScenario && !scenariosRendered) {
+                renderScenarios();
+            } else if (choice != -1) {
+                doStory();
+
+                if (currentScene.getFlag() == StoryConstants.SCENARIO_DONE) {
                     doingScenario = false;
                     scenariosRendered = false;
                 }
             }
-
         }
+    }
+
+    private void checkInput() {
+        doDelay(200);
+        choice = -1;
+        if (!doingScenario) {
+            checkScenarioChosen();
+        } else {
+            checkStoryInput();
+        }
+    }
+
+    private void renderScenarios() {
+        drawable = new ArrayList<>();
+        for (Scenario scenarioElement : scenarioList) {
+            drawable.add(scenarioElement);
+        }
+        window.render(drawable);
+        scenariosRendered = true;
+    }
+
+    private void checkStoryInput() {
+        if (window.isAlternative1()) {
+            choice = 1;
+        } else if (window.isAlternative2()) {
+            choice = 2;
+        } else if (window.isAlternative3()) {
+            choice = 0;
+        }
+    }
+
+    private void checkScenarioChosen() {
+        if (window.isAlternative3()) {
+            choice = window.getSelectedChoice();
+            doingScenario = true;
+        }
+    }
+
+    private void doDelay(int delay) {
+        try {
+            Thread thread = new Thread();
+            thread.sleep(delay);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void doStory() {
+        if (isNewScenario()) {
+            scenario = scenarioList.get(choice);
+        }
+        currentScene = scenario.doScenario(princess, choice);
+        renderDialog();
+        window.resetAlternatives();
+    }
+
+    private void renderDialog() {
+        drawable = new ArrayList<>();
+        drawable.add(currentScene.getDialog());
+        window.render(drawable);
+    }
+
+    private boolean isNewScenario() {
+        return currentScene != null && currentScene.getDialogData().getSelectedChoice() == null;
     }
 }
