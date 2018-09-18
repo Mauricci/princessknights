@@ -6,15 +6,12 @@ import Story.Scenario;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
 public class Panel extends JPanel {
-    Image background = null;
     String stringText = "";
     ArrayList<Drawable> drawingObjects = new ArrayList<>();
-    private Graphics graphics;
     private int scenarioLap = 0;
     private boolean drawingScenarios = false;
     private int selectedChoice;
@@ -22,8 +19,6 @@ public class Panel extends JPanel {
     private int scenarioSize;
     private boolean firstDraw = true;
     private Image dialogBackground = null;
-    private Image princessImage;
-    private Font font;
 
 
     public Panel() {
