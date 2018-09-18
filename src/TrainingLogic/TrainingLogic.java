@@ -29,7 +29,6 @@ public class TrainingLogic {
                 case STRENGTH:
                     princess.addStrength(1);
                     skill.setSkillIsMaxed();
-
                     break;
                 case SPEED:
                     princess.addSpeed(1);
