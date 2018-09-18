@@ -65,7 +65,6 @@ public class Repository {
                     attributeEnum = AttributeEnum.CHARISMA;
                     break;
             }
-
             skill = new Skill(resultSet.getString(3),
                     resultSet.getString(4),
                     attributeEnum,
@@ -77,7 +76,6 @@ public class Repository {
         }
         return skill;
     }
-
 
     /** ENEMY **/
     public Enemy getEnemyForScene (String sceneID) {
@@ -95,7 +93,6 @@ public class Repository {
 
         try (PreparedStatement sth = dbconn.prepareStatement(stmt)) {
             sth.setString(1, sceneID);
-
             ResultSet res = sth.executeQuery();
 
             if (res.next()) {
@@ -180,7 +177,7 @@ public class Repository {
         return sceneMap;
     }
 
-    public Scene getScene(String sceneID) {
+    private Scene getScene(String sceneID) {
         String stmt = "SELECT * FROM dbo.SceneDialog WHERE ScenID = ?";
         Map<String, Dialog> dialogMap = new HashMap<>();
         String firstDialogID = "";
@@ -214,7 +211,7 @@ public class Repository {
         return new Scene(sceneID, enemy, dialogMap, firstDialogID);
     }
 
-    public boolean checkSceneForEnemy(String sceneID) {
+    private boolean checkSceneForEnemy(String sceneID) {
         String stmt = "SELECT * FROM dbo.Scen WHERE ID = ?";
         try (PreparedStatement sth = dbconn.prepareStatement(stmt)) {
             sth.setString(1, sceneID);

@@ -17,6 +17,8 @@ public class Scene {
     private String selectedSceneChoice;
     private int flag;
     private String firstDialogID;
+    private CombatResult result = null;
+    private boolean combatDone = false;
 
     public Scene(String sceneID, Enemy enemy, Map<String, Dialog> dialogs, String firstDialogID){
         this.id = sceneID;
@@ -28,40 +30,56 @@ public class Scene {
     }
 
     public SceneData doScene(Princess princess, int choice){
-        CombatResult result = null;
-        boolean combatDone = false;
+        checkCombatOrChoice(choice, princess);
+        checkAndUpdateDone();
+        return new SceneData(selectedSceneChoice, flag, currentDialogData);
+    }
 
+    private void checkAndUpdateDone() {
+        if(currentDialogData.getFlag() == StoryConstants.DONE) {
+            checkForDoneScenario();
+        }else if(combatDone){
+            updateDialogDataWhenCombatDone();
+        }
+    }
+
+    private void checkForDoneScenario() {
+        if(currentDialogData.selectedChoice == null){
+            flag = StoryConstants.SCENARIO_DONE;
+        }
+        else {
+            selectedSceneChoice = currentDialogData.selectedChoice;
+            currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
+        }
+    }
+
+    private void updateDialogDataWhenCombatDone() {
+        if(result.getResult() == 1){
+            currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
+        }else{
+            currentDialogData.setSelectedChoice(currentDialogData.getOtherChoice());
+            currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
+        }
+    }
+
+    private void checkCombatOrChoice(int choice, Princess princess) {
         if(currentDialogData.getFlag() != StoryConstants.DONE){
             currentDialogData = dialogs.get(currentDialogData.getSelectedChoice()).doDialog(choice);
             if(currentDialogData.getFlag() == StoryConstants.COMBAT){
-                Combat combat = new Combat();
-                AttributeEnum attributeEnum = currentDialogData.getDialog().getDefaultAtribute();
-                result = combat.calculateCombatResult(new CombatVariables(princess, attributeEnum), new CombatVariables(enemy, attributeEnum));
-                combatDone = true;
-                flag = StoryConstants.COMBAT_DONE;
+                doCombat(princess);
             }
             else if (currentDialogData.getFlag() == StoryConstants.DO_CHOICE){
                 currentDialogData.setDialog(dialogs.get(currentDialogData.getSelectedChoice()));
             }
         }
+    }
 
-        if(currentDialogData.getFlag() == StoryConstants.DONE) {
-            if(currentDialogData.selectedChoice == null){
-                flag = StoryConstants.SCENARIO_DONE;
-            }
-            else {
-                selectedSceneChoice = currentDialogData.selectedChoice;
-                currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
-            }
-        }else if(combatDone){
-            if(result.getResult() == 1){
-                currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
-            }else{
-                currentDialogData.setSelectedChoice(currentDialogData.getOtherChoice());
-                currentDialogData.setDialog(dialogs.get(currentDialogData.selectedChoice));
-            }
-        }
-        return new SceneData(selectedSceneChoice, flag, currentDialogData);
+    private void doCombat(Princess princess) {
+        Combat combat = new Combat();
+        AttributeEnum attributeEnum = currentDialogData.getDialog().getDefaultAtribute();
+        result = combat.calculateCombatResult(new CombatVariables(princess, attributeEnum), new CombatVariables(enemy, attributeEnum));
+        combatDone = true;
+        flag = StoryConstants.COMBAT_DONE;
     }
 
     public String getFirstDialogID(){
