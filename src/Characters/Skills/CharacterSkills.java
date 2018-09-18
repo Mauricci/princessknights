@@ -11,10 +11,8 @@ public class CharacterSkills {
     private List<Skill> characterSkillList = new ArrayList<>();
     private List<Skill> allSkills;
     private Skills masterList;
-    private Repository repository;
 
     public CharacterSkills(Repository repository, Attributes attributes) {
-        this.repository = repository;
         this.allSkills = repository.getAllSkills();
         this.masterList = new Skills(allSkills);
 
