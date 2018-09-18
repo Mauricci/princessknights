@@ -9,20 +9,27 @@ import java.util.List;
 
 public class CharacterSkills {
     private List<Skill> characterSkillList = new ArrayList<>();
+    private List<Skill> allSkills;
     private Skills masterList;
     private Repository repository;
 
     public CharacterSkills(Repository repository, Attributes attributes) {
         this.repository = repository;
-
-        List<Skill> allSkills = repository.getAllSkills();
+        this.allSkills = repository.getAllSkills();
         this.masterList = new Skills(allSkills);
 
+        addAllToCharacterSkill(createAttributeArray(attributes));
+    }
+
+    private int[] createAttributeArray(Attributes attributes) {
         int[] attrArray = {attributes.getStrength(),
                 attributes.getSpeed(),
                 attributes.getIntelligence(),
                 attributes.getCharisma()};
+        return attrArray;
+    }
 
+    private void addAllToCharacterSkill(int[] attrArray) {
         for (int i = 0; i < attrArray.length; i++) {
             characterSkillList.addAll(masterList.getSkillWithinRange(masterList.getSkillAttribute(i), 1, attrArray[i]));
         }
